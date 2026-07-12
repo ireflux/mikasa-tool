@@ -2,7 +2,8 @@ import type { ToolsReqData, ToolsInfo } from './tools.type'
 
 //获取tools分类与对应的工具
 export function getToolCategories() {
-  return [
+  const base = import.meta.env.BASE_URL
+  const categories = [
     {
       id: 2,
       title: '开发运维',
@@ -622,6 +623,14 @@ export function getToolCategories() {
       ]
     }
   ]
+  for (const cate of categories) {
+    for (const tool of cate.list) {
+      if (tool.logo && tool.logo.startsWith('/')) {
+        tool.logo = base + tool.logo.slice(1)
+      }
+    }
+  }
+  return categories
 }
 
 //工具list

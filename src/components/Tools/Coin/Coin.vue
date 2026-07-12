@@ -3,6 +3,9 @@ import { ref,reactive } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 // import { copy } from '@/utils/string'
+const base = import.meta.env.BASE_URL
+const frontBg = `url(${base}images/coin/dollar.png)`
+const reverseBg = `url(${base}images/coin/xingxing.png)`
 const info = reactive({
   title: "抛硬币",
 })
@@ -82,10 +85,10 @@ const throwCoin = () => {
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background-image: url('/public/images/coin/dollar.png');
+	background-image: v-bind(frontBg);
 }
 .rotate-wrap .reverse{
-	background-image: url('/public/images/coin/xingxing.png');
+	background-image: v-bind(reverseBg);
 }
 
 .circle{
