@@ -12,6 +12,7 @@ const isSSRBuild = process.argv.includes('--ssr')
 export default defineConfig(({command, mode}) => {
   let env = loadEnv(mode, process.cwd())
   return {
+    base: env.VITE_BASE_URL || '/',
     plugins: [
       vue(),
       AutoImport({
