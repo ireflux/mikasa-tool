@@ -89,8 +89,8 @@ onMounted(() => {
             <!-- 占位 div -->
             <div class="w-[24%] c-md:w-[24%] c-sm:w-[32%] "></div>
         </div>
-        <div v-else class="mt-5 p-5 bg-white rounded-2xl">
-          <el-empty description="暂无收藏工具" />
+        <div v-else class="mt-5 p-4 bg-white rounded-2xl">
+          <el-empty description="暂无收藏工具" class="collect-empty" />
         </div>
       </div>
     </div>
@@ -159,22 +159,34 @@ onMounted(() => {
   box-shadow: var(--shadow-card);
 }
 
-/* 标题样式 */
+/* 标题样式 — Google Material Design 风格：左侧竖向强调条替代下划线 */
 .tech-title {
   position: relative;
-  display: inline-block;
-  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  scroll-margin-top: 100px;
 }
 
-.tech-title::after {
+.tech-title::before {
   content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 40px;
-  height: 3px;
+  display: block;
+  width: 4px;
+  height: 18px;
   background: var(--color-primary);
-  border-radius: 3px;
+  border-radius: 2px;
+  margin-right: 10px;
+  transition: height var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.tech-title:hover::before {
+  height: 22px;
+}
+
+/* 收藏区域容器 — 滚动定位补偿 */
+#collect {
+  scroll-margin-top: 100px;
 }
 
 /* 收藏区域折叠头部 */
@@ -184,6 +196,10 @@ onMounted(() => {
   cursor: pointer;
   user-select: none;
   gap: 0.5rem;
+}
+
+.collect-header .tech-title {
+  margin-bottom: 0;
 }
 
 .collect-header:hover .tech-title {
@@ -202,5 +218,12 @@ onMounted(() => {
 
 .collect-header:hover .collect-arrow {
   color: var(--color-primary);
+}
+
+/* 空状态组件 — 紧凑布局 */
+.collect-empty {
+  --el-empty-padding: 0px 0;
+  --el-empty-image-width: 80px;
+  --el-empty-description-margin-top: 15px;
 }
 </style>

@@ -1,68 +1,63 @@
+<h1 align="center">
+  <pre>
+    __  ____ __                       ______            __    
+   /  |/  (_) /______ __________ _   /_  __/___  ____  / /____
+  / /|_/ / / //_/ __ `/ ___/ __ `/    / / / __ \/ __ \/ / ___/
+ / /  / / / ,< / /_/ (__  ) /_/ /    / / / /_/ / /_/ / (__  ) 
+/_/  /_/_/_/|_|\__,_/____/\__,_/    /_/  \____/\____/_/____/  
+                                                              
+  </pre>
+</h1>
+
 # Mikasa Tool
 
-一个纯前端的在线工具箱，无需后端，开箱即用。基于 Vue 3 + Vite + TypeScript 构建，支持 SSG 预渲染。
+A client-side online toolbox that runs entirely in the browser — no backend required. Built with Vue 3, Vite, and TypeScript, with support for static site generation (SSG) via prerendering.
 
-## 技术栈
+## Tech Stack
 
-| 技术 | 说明 |
+| Technology | Purpose |
 | --- | --- |
-| Vue 3 | 前端框架 |
-| Vite | 构建工具 |
-| TypeScript | 类型安全 |
-| Element Plus | UI 组件库 |
-| Pinia | 状态管理 |
-| Vue Router | 路由 |
-| Tailwind CSS | 原子化 CSS |
-| ECharts | 图表渲染 |
+| Vue 3 | Frontend framework |
+| Vite | Build tool and dev server |
+| TypeScript | Type safety |
+| Element Plus | UI component library |
+| Pinia | State management |
+| Vue Router | Client-side routing |
+| Tailwind CSS | Utility-first CSS |
+| ECharts | Charts and visualizations |
 
-## 工具分类
+## Features
 
-共计 **68** 个工具，分为 7 大类：
+Mikasa Tool includes **68** utilities across **7** categories:
 
-### 开发运维（20）
+- **DevOps**: password generator, URL encode/decode, UUID generator, timestamp converter, MD5, JSON formatter, regex tester, Unicode converter, HTTP status codes, JWT parser, HTML entity escape, JS/HTML/CSS formatter, Base64, base converter, storage unit converter, hash calculator, XML/SQL formatter
+- **Text**: diff, Markdown editor, word count, duplicate removal, ASCII art, rich text editor, text replace, text workflow, word frequency
+- **Education & Science**: unit converter, Morse code, ASCII table, length/area/weight/time/temperature/pressure/energy/power converters
+- **Image**: QR code generator, image editor, text-to-image, image splitter, color picker, watermark
+- **Charts**: bar, line, pie, scatter, word cloud
+- **Random & Decision**: random number, decision helper, coin flip, dice, lottery, spinner
+- **Miscellaneous**: Chinese number converter, danmaku, color palette, pomodoro, reaction test, m3u8 player, rock-paper-scissors, emoji picker, calculator
 
-随机密码生成、URL 编码/解码、UUID 生成器、时间戳转换、MD5 加密、JSON 格式化、正则测试、Unicode 转中文、HTTP 状态码、JWT 解析、HTML 实体转义、JS 格式化/压缩、HTML 格式化、CSS 格式化/压缩、Base64 加解密、进制转换、数据存储单位换算、Hash 计算器、XML 格式化、SQL 格式化
-
-### 文本处理（9）
-
-文本对比、Markdown 编辑器、字数统计、文本去重、ASCII 字形生成器、富文本编辑、文本替换、文本处理工作流、词频统计
-
-### 教育学术（12）
-
-单位换算、摩斯电码、进制转换、ASCII 码表、长度/面积/重量/时间/温度/压力/热量/功率单位转换
-
-### 图片处理（6）
-
-二维码生成、图片编辑、文本转图片、图片分割、传图取色、图片水印
-
-### 数据图表（5）
-
-柱状图、折线图、饼图、散点图、词云生成
-
-### 选择随机（6）
-
-随机数生成、帮我决定、抛硬币、投骰子、抽签、转盘
-
-### 其他工具（10）
-
-数字转大写金额、手持弹幕、色板、颜色选择器、番茄时钟、反应速度测试、m3u8 播放、剪刀石头布、Emoji 大全、计算器
-
-## 快速开始
+## Getting Started
 
 ```bash
-# 安装依赖
+# Install dependencies
 pnpm install
 
-# 启动开发服务器
+# Start the dev server
 pnpm dev
 
-# 构建生产版本（含 SSG 预渲染）
+# Build for production (with SSG prerendering)
 pnpm build
 
-# 代码检查
+# Lint and format
 pnpm lint
 pnpm format
 ```
+
+## Acknowledgments
+
+This project is based on [tools-web](https://github.com/naroat/tools-web)
 
 ## License
 
