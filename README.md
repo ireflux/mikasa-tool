@@ -1,14 +1,3 @@
-<h1 align="center">
-  <pre>
-  
-   __  ____ __                   ______          __
-  /  |/  (_) /_____ ____ ___ _  /_  __/__  ___  / /
- / /|_/ / /  '_/ _ `(_-</ _ `/   / / / _ \/ _ \/ / 
-/_/  /_/_/_/\_\\_,_/___/\_,_/   /_/  \___/\___/_/  
-                                      
-  </pre>
-</h1>
-
 # Mikasa Tool
 
 A client-side online toolbox that runs entirely in the browser — no backend required. Built with Vue 3, Vite, and TypeScript, with support for static site generation (SSG) via prerendering.
