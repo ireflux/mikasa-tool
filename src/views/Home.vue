@@ -61,11 +61,11 @@ onMounted(() => {
               v-for="(item, index) in collectionStore.collectedTools" 
               :key="index" 
               :to="item.url" 
-              class="flex flex-col mt-4 border-solid rounded-[10px] w-[24%] p-2 bg-white c-xs:w-[99.5%] c-md:w-[24%] c-sm:w-[32%] p-5 tech-card stagger-item"
+              class="flex flex-col mt-4 w-[24%] p-2 c-xs:w-[99.5%] c-md:w-[24%] c-sm:w-[32%] p-5 glass-card stagger-item"
               :style="{ '--stagger-i': index % 8 }"
             >
               <div class="flex items-center border-b pb-2">
-                <el-image :src="item.logo" class="w-10 h-10 min-h-[2.5rem] min-w-[2.5rem] rounded-full"></el-image>
+                <el-image :src="item.logo" class="w-10 h-10 min-h-[2.5rem] min-w-[2.5rem] rounded-xl bg-[#f0f4f9] p-1"></el-image>
                 <div class="flex flex-col ml-2 w-full">
                   <div class="flex justify-between">
                     <div class="font-semibold text-lg line-clamp-1">{{ item.title }}</div>
@@ -89,7 +89,7 @@ onMounted(() => {
             <!-- 占位 div -->
             <div class="w-[24%] c-md:w-[24%] c-sm:w-[32%] "></div>
         </div>
-        <div v-else class="mt-5 p-4 bg-white rounded-2xl">
+        <div v-else class="mt-5 p-4 glass rounded-2xl">
           <el-empty description="暂无收藏工具" class="collect-empty" />
         </div>
       </div>
@@ -107,11 +107,11 @@ onMounted(() => {
             v-for="(item, index) in cate.list" 
             :key="index" 
             :to="item.url" 
-            class="flex flex-col mt-4 border-solid rounded-[10px] w-[24%] p-2 bg-white c-xs:w-[99.5%] c-md:w-[24%] c-sm:w-[32%] p-5 tech-card stagger-item"
+            class="flex flex-col mt-4 w-[24%] p-2 c-xs:w-[99.5%] c-md:w-[24%] c-sm:w-[32%] p-5 glass-card stagger-item"
             :style="{ '--stagger-i': index % 8 }"
           >
             <div class="flex items-center border-b pb-2">
-              <el-image :src="item.logo" class="w-10 h-10 min-h-[2.5rem] min-w-[2.5rem] rounded-full"></el-image>
+              <el-image :src="item.logo" class="w-10 h-10 min-h-[2.5rem] min-w-[2.5rem] rounded-xl bg-[#f0f4f9] p-1"></el-image>
               <div class="flex flex-col ml-2 w-full">
                 <div class="flex">
                   <div class="font-semibold text-lg line-clamp-1">{{ item.title }}</div>
@@ -141,22 +141,9 @@ onMounted(() => {
   width: 24%;
 }
 
-/* 扁平卡片样式 */
-.router-link-active .tech-card {
+/* 卡片激活态 */
+.router-link-active.glass-card {
   border-color: var(--color-primary);
-}
-
-.tech-card {
-  position: relative;
-  overflow: hidden;
-  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-}
-
-.tech-card:hover {
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-card);
 }
 
 /* 标题样式 — Google Material Design 风格：左侧竖向强调条替代下划线 */

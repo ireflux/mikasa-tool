@@ -107,13 +107,15 @@ const gotoAbout = () => {
 </template>
 
 <style scoped>
-/* 侧边栏内部布局 */
+/* 侧边栏内部布局 — 磨砂玻璃 */
 .sidebar-inner {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: var(--color-surface);
-  border-right: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* 菜单滚动区域 */
@@ -133,68 +135,52 @@ const gotoAbout = () => {
   background-color: transparent !important;
 }
 .el-sub-menu {
-  border-radius: var(--radius-btn) !important;
+  border-radius: 999px !important;
   list-style: none !important;
   margin: 0 !important;
   padding-left: 0 !important;
   background-color: transparent !important;
 }
 
-/* 子菜单标题 */
+/* 子菜单标题 — Material 3 胶囊 */
 .el-sub-menu :deep(.el-sub-menu__title) {
   font-size: 1rem;
-  border-radius: var(--radius-btn);
+  border-radius: 999px;
   transition: background-color var(--transition-fast), color var(--transition-fast);
   position: relative;
 }
 
 .el-sub-menu :deep(.el-sub-menu__title:hover) {
-  color: var(--color-primary);
-  background: var(--color-primary-light);
-  border-radius: var(--radius-btn);
+  color: var(--color-text);
+  background: rgba(31, 31, 31, 0.06);
 }
 
-/* 菜单项 — 扁平设计 */
+/* 菜单项 — Material 3 胶囊 */
 .el-menu-item {
   background-color: transparent;
-  line-height: 38px !important;
-  height: 38px !important;
+  line-height: 44px !important;
+  height: 44px !important;
   margin: 4px 0;
-  border-radius: var(--radius-btn) !important;
+  border-radius: 999px !important;
   transition: background-color var(--transition-fast), color var(--transition-fast);
   position: relative;
   overflow: hidden;
 }
 
-.el-menu-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 3px;
-  height: 100%;
-  background: var(--color-primary);
-  transform: scaleY(0);
-  transform-origin: center;
-  transition: transform var(--transition-fast);
-  border-radius: 0 var(--radius-btn) var(--radius-btn) 0;
-}
-
-.el-menu-item:hover::before,
-.el-menu-item.is-active::before {
-  transform: scaleY(1);
-}
-
 .el-menu-item.is-active {
-  color: var(--color-primary);
-  background: var(--color-primary-light);
-  border-radius: var(--radius-btn);
+  color: var(--color-primary-hover);
+  background: var(--color-primary-light2);
+  font-weight: 600;
 }
 
 .el-menu-item:hover {
-  color: var(--color-primary);
-  background: var(--color-primary-light);
-  border-radius: var(--radius-btn);
+  color: var(--color-text);
+  background: rgba(31, 31, 31, 0.06);
+}
+
+.el-menu-item.is-active:hover {
+  color: var(--color-primary-hover);
+  background: var(--color-primary-light2);
 }
 
 /* 折叠模式 — el-menu popup 子菜单 */
@@ -210,12 +196,13 @@ const gotoAbout = () => {
   width: 200px;
   border-radius: var(--radius-card);
   overflow: hidden;
-  border: 1px solid var(--color-border);
-  transition: border-color var(--transition-fast);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-fast);
 }
 
 .ad-container:hover {
-  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .ad-link {

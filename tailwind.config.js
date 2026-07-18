@@ -10,31 +10,32 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#2563eb',
-          hover: '#1d4ed8',
-          light: '#eff6ff',
-          light2: '#dbeafe',
+          DEFAULT: '#1a73e8',
+          hover: '#0b57d0',
+          light: '#e8f0fe',
+          light2: '#d3e3fd',
         },
         surface: '#ffffff',
-        canvas: '#f8fafc',
+        canvas: '#f8faff',
         border: {
-          DEFAULT: '#e2e8f0',
-          hover: '#cbd5e1',
+          DEFAULT: 'rgba(31,31,31,0.08)',
+          hover: 'rgba(31,31,31,0.16)',
         },
         content: {
-          primary: '#1e293b',
-          secondary: '#64748b',
-          muted: '#94a3b8',
+          primary: '#1f1f1f',
+          secondary: '#444746',
+          muted: '#5f6368',
         },
       },
       borderRadius: {
-        'card': '10px',
-        'btn': '6px',
-        'tag': '4px',
+        'card': '16px',
+        'btn': '12px',
+        'tag': '999px',
       },
       boxShadow: {
-        'card': '0 1px 3px rgba(0,0,0,0.08)',
-        'dropdown': '0 4px 12px rgba(0,0,0,0.08)',
+        'card': '0 4px 24px rgba(60,64,67,0.08)',
+        'card-hover': '0 12px 32px rgba(60,64,67,0.12)',
+        'dropdown': '0 8px 24px rgba(60,64,67,0.14)',
       },
       transitionTimingFunction: {
         'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',

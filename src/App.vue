@@ -13,6 +13,13 @@ const componentStore = useComponentStore()
 <template>
   <el-config-provider :locale="zhCn">
     <div>
+      <!-- Aurora background — Google pastel 极光色块 -->
+      <div class="aurora-bg" aria-hidden="true">
+        <div class="aurora-blob aurora-blob--blue"></div>
+        <div class="aurora-blob aurora-blob--green"></div>
+        <div class="aurora-blob aurora-blob--yellow"></div>
+      </div>
+
       <!-- Full-width header — Gmail 风格，logo 和搜索栏在同一行 -->
       <Header />
 

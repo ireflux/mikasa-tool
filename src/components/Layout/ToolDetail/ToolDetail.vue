@@ -18,28 +18,41 @@ const props = defineProps({
 </template>
 
 <style scoped>
-/* 详情区块 — 扁平设计 */
+/* 详情区块 — 磨砂玻璃 */
 .tech-detail-section {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
   position: relative;
 }
 
-/* 分割线 */
+/* 分割线 — 去掉横线，标题化展示 */
 .tech-divider {
+  border: none;
   position: relative;
 }
 
 .tech-divider :deep(.el-divider__text) {
-  background: var(--color-surface);
+  background: transparent;
   padding: 0 16px;
   font-weight: 600;
   color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
 }
 
-.tech-divider :deep(.el-divider__text::before),
-.tech-divider :deep(.el-divider__text::after) {
-  border-color: var(--color-border);
+/* 标题左侧 Google Blue 强调条 */
+.tech-divider :deep(.el-divider__text)::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 16px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  margin-right: 8px;
+  flex-shrink: 0;
 }
 </style>

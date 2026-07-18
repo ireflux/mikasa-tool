@@ -84,11 +84,14 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* 详情页头部 — 扁平设计 */
+/* 详情页头部 — 磨砂玻璃 */
 .tech-detail-header {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
   position: relative;
 }
 
@@ -102,7 +105,7 @@ onMounted(() => {
 /* 按钮 */
 .tech-button {
   position: relative;
-  border-radius: var(--radius-btn);
+  border-radius: 999px;
   transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
@@ -124,7 +127,7 @@ onMounted(() => {
 
 /* 未收藏状态按钮样式 */
 .tech-button.is-default {
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.7);
   border-color: var(--color-border);
   color: var(--color-text-secondary);
 }

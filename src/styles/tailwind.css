@@ -3,39 +3,48 @@
 @tailwind utilities;
 
 /* ============================================
-   Design Tokens
+   Design Tokens — Gmail × Glass (Light Glassmorphism)
    ============================================ */
 :root {
-  /* Colors — Primary */
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-  --color-primary-light: #eff6ff;
-  --color-primary-light2: #dbeafe;
+  /* Colors — Google Blue */
+  --color-primary: #1a73e8;
+  --color-primary-hover: #0b57d0;
+  --color-primary-light: #e8f0fe;
+  --color-primary-light2: #d3e3fd;
 
   /* Colors — Neutral */
-  --color-bg: #f8fafc;
+  --color-bg: #f8faff;
   --color-surface: #ffffff;
-  --color-border: #e2e8f0;
-  --color-border-hover: #cbd5e1;
+  --color-border: rgba(31, 31, 31, 0.08);
+  --color-border-hover: rgba(31, 31, 31, 0.16);
 
   /* Colors — Text */
-  --color-text: #1e293b;
-  --color-text-secondary: #64748b;
-  --color-text-muted: #94a3b8;
+  --color-text: #1f1f1f;
+  --color-text-secondary: #444746;
+  --color-text-muted: #5f6368;
 
-  /* Colors — Status */
-  --color-success: #059669;
-  --color-warning: #d97706;
-  --color-danger: #dc2626;
+  /* Colors — Status (Google) */
+  --color-success: #188038;
+  --color-warning: #e37400;
+  --color-danger: #d93025;
 
-  /* Shadows */
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.08);
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-bg-strong: rgba(255, 255, 255, 0.8);
+  --glass-bg-soft: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-strong: blur(20px) saturate(180%);
 
-  /* Border Radius */
-  --radius-card: 10px;
-  --radius-btn: 6px;
-  --radius-tag: 4px;
+  /* Shadows — soft layered */
+  --shadow-card: 0 4px 24px rgba(60, 64, 67, 0.08);
+  --shadow-card-hover: 0 12px 32px rgba(60, 64, 67, 0.12);
+  --shadow-dropdown: 0 8px 24px rgba(60, 64, 67, 0.14);
+
+  /* Border Radius — Material 3 */
+  --radius-card: 16px;
+  --radius-btn: 12px;
+  --radius-tag: 999px;
 
   /* Transitions */
   --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -43,42 +52,47 @@
   --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Legacy compatibility */
-  --base-gray: #f8fafc;
-  --base-black: #1e293b;
+  --base-gray: #f8faff;
+  --base-black: #1f1f1f;
 }
 
 /* ============================================
    Element Plus Theme Overrides
    ============================================ */
 :root {
-  --el-color-primary: #2563eb;
-  --el-color-primary-light-3: #60a5fa;
-  --el-color-primary-light-5: #93c5fd;
-  --el-color-primary-light-7: #bfdbfe;
-  --el-color-primary-light-8: #dbeafe;
-  --el-color-primary-light-9: #eff6ff;
-  --el-color-primary-dark-2: #1d4ed8;
+  --el-color-primary: #1a73e8;
+  --el-color-primary-light-3: #5f9def;
+  --el-color-primary-light-5: #8cb9f4;
+  --el-color-primary-light-7: #bad5f8;
+  --el-color-primary-light-8: #d3e3fd;
+  --el-color-primary-light-9: #e8f0fe;
+  --el-color-primary-dark-2: #0b57d0;
 
-  --el-border-radius-base: 6px;
-  --el-border-radius-small: 4px;
-  --el-border-color: #e2e8f0;
-  --el-border-color-hover: #cbd5e1;
-  --el-border-color-light: #e2e8f0;
-  --el-border-color-lighter: #f1f5f9;
+  --el-color-success: #188038;
+  --el-color-warning: #e37400;
+  --el-color-danger: #d93025;
+  --el-color-error: #d93025;
 
-  --el-fill-color-blank: #ffffff;
-  --el-fill-color-light: #f8fafc;
-  --el-fill-color-lighter: #f1f5f9;
+  --el-border-radius-base: 12px;
+  --el-border-radius-small: 8px;
+  --el-border-color: rgba(31, 31, 31, 0.12);
+  --el-border-color-hover: rgba(31, 31, 31, 0.24);
+  --el-border-color-light: rgba(31, 31, 31, 0.08);
+  --el-border-color-lighter: rgba(31, 31, 31, 0.06);
 
-  --el-text-color-primary: #1e293b;
-  --el-text-color-regular: #475569;
-  --el-text-color-secondary: #64748b;
-  --el-text-color-placeholder: #94a3b8;
+  --el-fill-color-blank: rgba(255, 255, 255, 0.8);
+  --el-fill-color-light: rgba(248, 250, 255, 0.8);
+  --el-fill-color-lighter: rgba(240, 244, 249, 0.8);
 
-  --el-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --el-box-shadow-light: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --el-box-shadow-lighter: 0 1px 2px rgba(0, 0, 0, 0.02);
-  --el-box-shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --el-text-color-primary: #1f1f1f;
+  --el-text-color-regular: #444746;
+  --el-text-color-secondary: #5f6368;
+  --el-text-color-placeholder: #80868b;
+
+  --el-box-shadow: 0 4px 24px rgba(60, 64, 67, 0.1);
+  --el-box-shadow-light: 0 2px 8px rgba(60, 64, 67, 0.06);
+  --el-box-shadow-lighter: 0 1px 4px rgba(60, 64, 67, 0.04);
+  --el-box-shadow-dark: 0 8px 24px rgba(60, 64, 67, 0.14);
 }
 
 /* ============================================
@@ -106,29 +120,120 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: rgba(60, 64, 67, 0.25);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(60, 64, 67, 0.4);
+}
+
+/* ============================================
+   Glass Utilities
+   ============================================ */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal),
+    background-color var(--transition-normal);
+}
+
+.glass-card:hover {
+  transform: translateY(-3px);
+  background: var(--glass-bg-strong);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ============================================
+   Aurora Background — Google pastel blobs
+   ============================================ */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+  min-width: 320px;
+  min-height: 320px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+.aurora-blob--blue {
+  background: #d3e3fd;
+  top: -12%;
+  left: -8%;
+  animation: aurora-float-1 28s ease-in-out infinite;
+}
+
+.aurora-blob--green {
+  background: #ceead6;
+  top: 32%;
+  right: -14%;
+  animation: aurora-float-2 34s ease-in-out infinite;
+}
+
+.aurora-blob--yellow {
+  background: #feefc3;
+  bottom: -18%;
+  left: 24%;
+  animation: aurora-float-3 40s ease-in-out infinite;
+}
+
+@keyframes aurora-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6vw, 8vh) scale(1.12); }
+}
+
+@keyframes aurora-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-8vw, -6vh) scale(0.92); }
+}
+
+@keyframes aurora-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5vw, -7vh) scale(1.08); }
 }
 
 /* ============================================
    Shared Utility Classes — Tool Components
    ============================================ */
 
-/* Main content card container (replaces p-4 rounded-2xl bg-white) */
+/* Main content card container */
 .tool-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-card);
   padding: 1.25rem;
-  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-normal), background-color var(--transition-normal);
 }
 
 .tool-card:hover {
-  border-color: var(--color-border-hover);
+  background: var(--glass-bg-strong);
+  box-shadow: var(--shadow-card-hover);
 }
 
 /* Section within a card */
@@ -159,7 +264,7 @@ body {
 
 /* Read-only result display */
 .tool-result {
-  background: var(--color-bg);
+  background: rgba(248, 250, 255, 0.7);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-btn);
   padding: 0.75rem;
@@ -206,7 +311,7 @@ body {
    Element Plus Component Refinements
    ============================================ */
 
-/* Buttons — flat, no heavy shadow */
+/* Buttons — Material 3 pill, no heavy shadow */
 .el-button {
   border-radius: var(--radius-btn);
   transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
@@ -217,6 +322,7 @@ body {
 }
 
 .el-button--primary {
+  border-radius: 999px;
   --el-button-bg-color: var(--color-primary);
   --el-button-border-color: var(--color-primary);
   --el-button-hover-bg-color: var(--color-primary-hover);
@@ -225,7 +331,7 @@ body {
   --el-button-active-border-color: var(--color-primary-hover);
 }
 
-/* Inputs — flat, clean border */
+/* Inputs — clean border */
 .el-input__wrapper,
 .el-textarea__inner {
   border-radius: var(--radius-btn);
@@ -236,13 +342,13 @@ body {
   box-shadow: 0 0 0 1px var(--color-primary) inset !important;
 }
 
-/* Cards — flat */
+/* Cards */
 .el-card {
   border-radius: var(--radius-card);
   border-color: var(--color-border);
 }
 
-/* Tabs — clean underline */
+/* Tabs */
 .el-tabs__item {
   font-weight: 500;
   color: var(--color-text-secondary);
@@ -257,31 +363,48 @@ body {
   background-color: var(--color-primary);
 }
 
-/* Menu — flat */
+/* Menu */
 .el-menu {
   border-right: none !important;
 }
 
 .el-menu-item,
 .el-sub-menu__title {
-  border-radius: var(--radius-btn);
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
-/* Dialog — flat shadow */
+/* Dialog — frosted glass */
 .el-dialog {
   border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
   box-shadow: var(--shadow-dropdown);
 }
 
-/* Message box — flat */
+/* Message box — frosted glass */
 .el-message-box {
   border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
 }
 
-/* Drawer — clean */
+/* Message — frosted glass */
+.el-message {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-dropdown);
+}
+
+/* Drawer */
 .el-drawer {
   border-radius: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
 }
 
 /* Divider — subtle */
@@ -289,14 +412,14 @@ body {
   border-color: var(--color-border);
 }
 
-/* Tooltip — clean */
+/* Tooltip */
 .el-popper.is-dark {
   background: var(--color-text) !important;
   border: none !important;
-  border-radius: var(--radius-tag) !important;
+  border-radius: 8px !important;
 }
 
-/* Select dropdown — flat */
+/* Select dropdown — frosted glass */
 .el-select__wrapper {
   border-radius: var(--radius-btn);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -306,10 +429,20 @@ body {
   box-shadow: 0 0 0 1px var(--color-primary) inset !important;
 }
 
-/* Backtop — flat */
+.el-select-dropdown {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
+}
+
+/* Backtop */
 .el-backtop {
   box-shadow: var(--shadow-card);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  color: var(--color-primary);
 }
 
 /* ============================================
@@ -329,11 +462,22 @@ body {
   opacity: 0;
   transform: translateY(-4px);
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-:root{
-  --base-gray: #f5f5fb;
-  --base-black: #444;
+/* ============================================
+   Reduced Motion — accessibility fallback
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob {
+    animation: none;
+  }
+
+  .stagger-item {
+    animation: none;
+  }
+
+  .glass-card,
+  .glass-card:hover {
+    transition: none;
+    transform: none;
+  }
 }

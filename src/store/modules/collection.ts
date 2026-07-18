@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import type { ToolsInfo } from '@/data/tools.type'
+import { toolsList } from '@/data/tools'
 
 // 收藏工具列表存储键名
 const COLLECTED_TOOLS_KEY = 'collected_tools';
@@ -14,7 +15,13 @@ export const useCollectionStore = defineStore('collection', {
       try {
         const stored = localStorage.getItem(COLLECTED_TOOLS_KEY);
         if (stored) {
-          this.collectedTools = JSON.parse(stored);
+          const tools = JSON.parse(stored) as ToolsInfo[];
+          // 按 url 从当前工具目录重新映射 logo，避免本地存储中的旧图标路径失效
+          const catalog = toolsList();
+          this.collectedTools = tools.map(tool => {
+            const current = catalog.find(t => t.url === tool.url);
+            return current ? { ...tool, logo: current.logo } : tool;
+          });
         }
       } catch (error) {
         console.error('加载收藏工具失败:', error);

@@ -53,21 +53,21 @@ onMounted(() => {
        
         <el-button type="primary" @click="search('click')">查询</el-button>
       </div>
-      <div class="mt-3 min-h-md bg-gray-100 p-3 mb-3 flex flex-col">
-        <div class="bg-white p-2 font-bold text-xl">您的IP信息</div>
-        <div class="bg-white p-2 flex">
+      <div class="mt-3 min-h-md tool-result p-3 mb-3 flex flex-col">
+        <div class="p-2 font-bold text-xl">您的IP信息</div>
+        <div class="p-2 flex">
           <div class="mr-1">运营商: </div>
           <div>{{ toolsStore.ipData.isp }}</div>
         </div>
-        <div class="bg-white p-2 flex">
+        <div class="p-2 flex">
           <div class="mr-1">域名解析地址: </div>
           <div>{{ toolsStore.ipData.ip }}</div>
         </div>
-        <div class="bg-white p-2 flex">
+        <div class="p-2 flex">
           <div class="mr-1">所在地理位置: </div>
           <div>{{ toolsStore.ipData.pos }}</div>
         </div>
-        
+
       </div>
     </div>
   </div>
