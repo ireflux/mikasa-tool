@@ -4,55 +4,69 @@
 
     <div class="tool-card">
       <div class="tool-content">
+        <!-- 左侧：选项输入区 -->
         <div class="input-section">
           <el-form label-position="top">
             <el-form-item label="转盘选项（每行一个）">
               <el-input
                 v-model="optionsText"
                 type="textarea"
-                :rows="6"
+                :rows="8"
                 placeholder="请输入转盘选项，每行一个"
               />
             </el-form-item>
-            
-            <el-form-item>
-              <el-button type="primary" @click="updateWheel">更新转盘</el-button>
-              <el-button @click="clearOptions">清空</el-button>
-            </el-form-item>
           </el-form>
         </div>
-        
+
+        <!-- 右侧：转盘 + 结果 -->
         <div class="wheel-section">
           <div class="wheel-wrapper">
-            <div 
-              ref="wheel" 
-              class="wheel"
-              :style="wheelStyle"
-            >
-              <div 
-                v-for="(option, index) in options" 
-                :key="index"
-                class="wheel-sector"
-                :style="getSectorStyle(index)"
-              >
-                <div class="sector-text">{{ option }}</div>
-              </div>
-              <div class="wheel-center"></div>
-            </div>
+            <!-- 顶部指针 -->
             <div class="wheel-pointer"></div>
-          </div>
-          
-          <div class="wheel-controls">
-            <el-button 
-              type="primary" 
-              :disabled="isSpinning || options.length < 2"
+
+            <!-- SVG 转盘 -->
+            <svg
+              class="wheel-svg"
+              :style="{ transform: `rotate(${rotation}deg)` }"
+              viewBox="0 0 300 300"
+            >
+              <g v-for="(sector, i) in sectors" :key="i">
+                <path
+                  :d="sector.path"
+                  :fill="sector.color"
+                  stroke="#fff"
+                  stroke-width="1.5"
+                />
+                <text
+                  :x="sector.textX"
+                  :y="sector.textY"
+                  text-anchor="middle"
+                  dominant-baseline="middle"
+                  :transform="`rotate(${sector.textAngle}, ${sector.textX}, ${sector.textY})`"
+                  fill="#fff"
+                  font-size="13"
+                  font-weight="600"
+                  style="pointer-events: none; text-shadow: 0 1px 2px rgba(0,0,0,.3)"
+                >
+                  {{ sector.label }}
+                </text>
+              </g>
+            </svg>
+
+            <!-- 中心圆环（点击触发旋转） -->
+            <button
+              class="wheel-center"
+              :class="{ 'is-spinning': isSpinning }"
+              :disabled="isSpinning || options.length < 1"
               @click="spinWheel"
             >
-              {{ isSpinning ? '旋转中...' : '开始旋转' }}
-            </el-button>
-            <div v-if="result" class="result">
-              结果: {{ result }}
-            </div>
+              {{ isSpinning ? '旋转中' : '开始' }}
+            </button>
+          </div>
+
+          <!-- 结果展示 -->
+          <div v-if="result" class="result">
+            结果：<span class="result-text">{{ result }}</span>
           </div>
         </div>
       </div>
@@ -69,18 +83,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
 const title = "转盘工具"
 
-const optionsText = ref('');
-const options = ref<string[]>([]);
+const optionsText = ref('选项1\n选项2\n选项3\n选项4\n选项5');
 const isSpinning = ref(false);
-const result = ref<string>('');
-// const wheel = ref<HTMLElement | null>(null);
+const result = ref('');
 const rotation = ref(0);
+
+const CX = 150;
+const CY = 150;
+const RADIUS = 148;
 
 // 颜色列表
 const colors = [
@@ -88,117 +104,122 @@ const colors = [
   '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3', '#ff9f43'
 ];
 
-// 解析选项
-const parseOptions = () => {
-  const newOptions = optionsText.value
-    .split('\n')
-    .map(option => option.trim())
-    .filter(option => option !== '');
-  options.value = newOptions;
-};
+// 实时解析选项
+const options = computed(() =>
+  optionsText.value.split('\n').map(s => s.trim()).filter(Boolean)
+);
 
-// 更新转盘
-const updateWheel = () => {
-  parseOptions();
-  result.value = '';
-};
-
-// 清空选项
-const clearOptions = () => {
-  optionsText.value = '';
-  options.value = [];
-  result.value = '';
-};
-
-// 转盘样式
-const wheelStyle = computed(() => {
-  return {
-    transform: `rotate(${rotation.value}deg)`
-  };
+// 选项变化时清除结果
+watch(options, () => {
+  if (!isSpinning.value) result.value = '';
 });
 
-// 获取扇形样式
-const getSectorStyle = (index: number) => {
+// 计算每个扇形的 SVG 数据
+const sectors = computed(() => {
   const count = options.value.length;
-  if (count === 0) return {};
-  
+  if (count === 0) return [];
+
+  // 仅1个选项：显示完整圆盘
+  if (count === 1) {
+    return [{
+      path: `M ${CX} ${CY - RADIUS} A ${RADIUS} ${RADIUS} 0 1 1 ${CX} ${CY + RADIUS} A ${RADIUS} ${RADIUS} 0 1 1 ${CX} ${CY - RADIUS} Z`,
+      color: colors[0],
+      label: options.value[0],
+      textX: String(CX),
+      textY: String(CY),
+      textAngle: 0,
+    }];
+  }
+
   const angle = 360 / count;
-  const startAngle = index * angle;
-  const endAngle = (index + 1) * angle;
-  
-  // 计算扇形路径
-  const radius = 150;
-  const centerX = radius;
-  const centerY = radius;
-  
-  const startX = centerX + radius * Math.cos((startAngle - 90) * Math.PI / 180);
-  const startY = centerY + radius * Math.sin((startAngle - 90) * Math.PI / 180);
-  const endX = centerX + radius * Math.cos((endAngle - 90) * Math.PI / 180);
-  const endY = centerY + radius * Math.sin((endAngle - 90) * Math.PI / 180);
-  
-  // const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
-  
-  // const path = `M ${centerX} ${centerY} L ${startX} ${startY} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY} Z`;
-  
-  return {
-    backgroundColor: colors[index % colors.length],
-    clipPath: `polygon(50% 50%, ${startX}px ${startY}px, ${endX}px ${endY}px)`
-  };
-};
+
+  return options.value.map((label, i) => {
+    const startDeg = i * angle - 90;
+    const endDeg = startDeg + angle;
+    const startRad = (startDeg * Math.PI) / 180;
+    const endRad = (endDeg * Math.PI) / 180;
+
+    const x1 = CX + RADIUS * Math.cos(startRad);
+    const y1 = CY + RADIUS * Math.sin(startRad);
+    const x2 = CX + RADIUS * Math.cos(endRad);
+    const y2 = CY + RADIUS * Math.sin(endRad);
+
+    const largeArc = angle > 180 ? 1 : 0;
+    const path = `M ${CX} ${CY} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${RADIUS} ${RADIUS} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
+
+    // 文字位置：扇形中心角度方向，距圆心 60% 处
+    const midDeg = startDeg + angle / 2;
+    const midRad = (midDeg * Math.PI) / 180;
+    const textR = RADIUS * 0.6;
+    const textX = CX + textR * Math.cos(midRad);
+    const textY = CY + textR * Math.sin(midRad);
+    // 文字旋转角度（使文字沿径向排列）
+    const textAngle = midDeg + 90;
+
+    return {
+      path,
+      color: colors[i % colors.length],
+      label,
+      textX: textX.toFixed(2),
+      textY: textY.toFixed(2),
+      textAngle: Number(textAngle.toFixed(2)),
+    };
+  });
+});
 
 // 旋转转盘
 const spinWheel = () => {
-  if (isSpinning.value || options.value.length < 2) {
+  if (isSpinning.value || options.value.length < 1) return;
+
+  // 仅1个选项：直接显示结果
+  if (options.value.length === 1) {
+    result.value = options.value[0];
     return;
   }
-  
+
   isSpinning.value = true;
   result.value = '';
-  
-  // 随机旋转角度（3-5圈）
-  const randomRotation = 360 * (3 + Math.random() * 2);
+
+  const count = options.value.length;
+  const anglePerOption = 360 / count;
+
+  // 随机旋转 3-5 圈 + 随机偏移
+  const spins = 3 + Math.random() * 2;
+  const randomOffset = Math.random() * 360;
+  const totalRotation = 360 * spins + randomOffset;
   const startRotation = rotation.value;
-  const finalRotation = startRotation + randomRotation;
-  
+
   // 计算最终指向的选项
-  const anglePerOption = 360 / options.value.length;
-  const normalizedRotation = finalRotation % 360;
-  const selectedIndex = Math.floor((360 - normalizedRotation) / anglePerOption) % options.value.length;
-  
-  // 执行旋转动画
-  const duration = 3000 + Math.random() * 2000; // 3-5秒
+  const finalAngle = (startRotation + totalRotation) % 360;
+  const selectedIndex = Math.floor(((360 - finalAngle) % 360) / anglePerOption) % count;
+
+  // 动画
+  const duration = 3000 + Math.random() * 2000;
   const startTime = performance.now();
-  
+
   const animate = (currentTime: number) => {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    
-    // 使用缓动函数
     const easeOut = 1 - Math.pow(1 - progress, 3);
-    rotation.value = startRotation + randomRotation * easeOut;
-    
+    rotation.value = startRotation + totalRotation * easeOut;
+
     if (progress < 1) {
       requestAnimationFrame(animate);
     } else {
-      // 旋转结束
       isSpinning.value = false;
       result.value = options.value[selectedIndex];
     }
   };
-  
+
   requestAnimationFrame(animate);
 };
-
-// 初始示例
-optionsText.value = '选项1\n选项2\n选项3\n选项4\n选项5';
-parseOptions();
 </script>
 
 <style scoped>
 .tool-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .input-section {
@@ -210,99 +231,107 @@ parseOptions();
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
 }
 
 .wheel-wrapper {
   position: relative;
   width: 300px;
   height: 300px;
-  margin-bottom: 20px;
 }
 
-.wheel {
+/* SVG 转盘 */
+.wheel-svg {
   width: 100%;
   height: 100%;
-  position: relative;
   border-radius: 50%;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: visible;
 }
 
-.wheel-sector {
+/* 顶部指针 */
+.wheel-pointer {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  padding: 20px;
-  box-sizing: border-box;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 22px solid #ff6b6b;
+  z-index: 20;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
 }
 
-.sector-text {
-  max-width: 80px;
-  word-break: break-word;
-}
-
+/* 中心圆环按钮 */
 .wheel-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  background-color: white;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  box-shadow: var(--shadow-card);
+  border: 3px solid #fff;
+  background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
   z-index: 10;
-}
-
-.wheel-pointer {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 25px solid #ff6b6b;
-  z-index: 20;
-}
-
-.wheel-controls {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 15px;
+  justify-content: center;
+  padding: 0;
+  outline: none;
 }
 
+.wheel-center:hover:not(:disabled) {
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.wheel-center:active:not(:disabled) {
+  transform: translate(-50%, -50%) scale(0.96);
+}
+
+.wheel-center:disabled,
+.wheel-center.is-spinning {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+/* 结果 */
 .result {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
   color: var(--color-text);
-  margin-top: 10px;
   padding: 10px 20px;
   background-color: var(--color-bg);
   border-radius: var(--radius-tag);
+  text-align: center;
+}
+
+.result-text {
+  color: #ff6b6b;
 }
 
 @media (min-width: 768px) {
   .tool-content {
     flex-direction: row;
+    align-items: flex-start;
   }
-  
+
   .input-section {
-    width: 40%;
+    width: 38%;
+    flex-shrink: 0;
   }
-  
+
   .wheel-section {
-    width: 60%;
+    width: 62%;
   }
 }
 </style>

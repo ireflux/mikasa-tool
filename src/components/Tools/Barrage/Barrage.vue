@@ -3,7 +3,8 @@ import { onBeforeMount, reactive,ref } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 // import { ElMessage } from 'element-plus'
-import vueDanmaku  from 'vue3-danmaku'  //https://www.npmjs.com/package/vue3-danmaku
+import vueDanmaku  from 'vue-danmaku'
+import 'vue-danmaku/style.css'
 const info = reactive({
   title: "手持弹幕",
   content: '工具坊',

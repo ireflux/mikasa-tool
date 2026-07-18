@@ -48,7 +48,7 @@
     "vue": "^3.3.10",
     "vue-clipboard3": "^2.0.0",
     "vue-codemirror": "^6.1.1",
-    "vue3-danmaku": "^1.6.0",
+    "vue-danmaku": "^2.0.5",
     "x-data-spreadsheet": "^1.1.9",
     "xlsx": "^0.18.5"
   },

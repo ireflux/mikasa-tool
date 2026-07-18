@@ -11,7 +11,7 @@ declare module '@kangc/v-md-editor'
 declare module '@kangc/v-md-editor/lib/theme/vuepress.js'
 declare module 'prismjs'
 declare module 'uuid'
-declare module 'vue3-danmaku'
+declare module 'vue-danmaku'
 
 interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string
