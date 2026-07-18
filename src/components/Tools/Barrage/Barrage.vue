@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { onBeforeMount, reactive,ref } from 'vue'
+import { reactive, ref } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
-// import { ElMessage } from 'element-plus'
-import vueDanmaku  from 'vue-danmaku'
+import vueDanmaku from 'vue-danmaku'
 import 'vue-danmaku/style.css'
+
 const info = reactive({
   title: "手持弹幕",
   content: '工具坊',
@@ -13,7 +13,7 @@ const info = reactive({
   textSize: 500,
   textColor: '#FFFFFF',
   bgColor: '#000000',
-  channels: 1,//轨道数量
+  channels: 1,
   extraStyle: '',
   danmakuFullStyle: "",
   isPlay: false,
@@ -22,40 +22,32 @@ const info = reactive({
 })
 
 const danmakuFullRef = ref(null) as any
+const showDanmaku = ref(false)
 
-//全屏播放/双击退出全屏并暂停
-const fullScreenPlay = () => {
-  if (info.isPlay) {
-    setExtraStyle('visibility: hidden;')
-    //暂停
-    danmakuFullRef.value.resize()
-    danmakuFullRef.value.stop()
-    // danmakuFullRef.value.pause()
-    info.isPlay = false
-  } else {
-    setExtraStyle()
-    //播放
-    formatBarrage()
-    danmakuFullRef.value.resize()
-    danmakuFullRef.value.play()
-    info.isPlay = true
-  }
-}
-
-//设置额外样式
+// 设置额外样式
 const setExtraStyle = (danmakuStyleExt: string = '') => {
   info.extraStyle = "color: " + info.textColor + ";font-size: " + info.textSize + "px"
   info.danmakuFullStyle = "z-index: 99; position: fixed; top: 0px; left: 0px; height:" + info.danmakuFullHeight + "; width:" + info.danmakuFullWidth + "; background-color:" + info.bgColor + ";" + danmakuStyleExt
 }
 
-//格式化弹幕
-const formatBarrage = () => {
-  info.barrage[0] = info.content
+// 全屏播放/双击退出全屏并暂停
+const fullScreenPlay = () => {
+  if (info.isPlay) {
+    // 暂停：停止并隐藏
+    danmakuFullRef.value?.stop()
+    showDanmaku.value = false
+    info.isPlay = false
+  } else {
+    // 播放：设置样式、填充弹幕、挂载组件
+    setExtraStyle()
+    info.barrage = [info.content]
+    showDanmaku.value = true
+    info.isPlay = true
+  }
 }
 
-onBeforeMount(() => {
-  setExtraStyle('visibility: hidden;')
-})
+// 初始化样式（隐藏状态）
+setExtraStyle('visibility: hidden;')
 </script>
 
 <template>
@@ -63,23 +55,20 @@ onBeforeMount(() => {
     <DetailHeader :title="info.title"></DetailHeader>
 
     <!-- 全屏 -->
-    <vue-danmaku 
+    <vue-danmaku
+      v-if="showDanmaku"
       ref="danmakuFullRef" 
       v-model:danmus="info.barrage" 
-      loop 
-      :autoplay="false"
+      loop
+      :autoplay="true"
       :speeds="info.speed"
       :channels="info.channels"
-      :extraStyle='info.extraStyle'
       :style="info.danmakuFullStyle"
       @dblclick="fullScreenPlay"
-      :useSlot="true"
     >
       <!-- 弹幕slot -->
-      <template v-slot:dm="{ danmu }">
-        <div class="" :style="info.extraStyle">
-          <!-- <img class="img" :src="danmu.avatar" /> -->
-          <!-- <span>{{ index }}{{ danmu.name }}：</span> -->
+      <template #danmu="{ danmu }">
+        <div :style="info.extraStyle">
           <span>{{ danmu }}</span>
         </div>
       </template>
