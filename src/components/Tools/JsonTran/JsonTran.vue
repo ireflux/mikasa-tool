@@ -106,6 +106,34 @@ const copyRes = async () => {
       </div>
     </div>
 
+    <!-- 高级版本外链 -->
+    <a
+      class="pro-link-card"
+      href="https://ireflux.github.io/JSON-Formatter/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div class="pro-link-left">
+        <span class="pro-link-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </span>
+        <div class="pro-link-text">
+          <span class="pro-link-title">JSON Formatter</span>
+          <span class="pro-link-desc">Monaco 编辑器 · Diff 对比 · 自动格式化 · 快捷键</span>
+        </div>
+      </div>
+      <span class="pro-link-action">
+        打开
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </span>
+    </a>
+
     <!-- desc -->
     <ToolDetail title="描述">
       <el-text>
@@ -117,4 +145,111 @@ const copyRes = async () => {
 </template>
 
 <style scoped>
+/* 高级版本外链卡片 */
+.pro-link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 14px 20px;
+  border-radius: var(--radius-card, 16px);
+  background: linear-gradient(135deg, rgba(232, 240, 254, 0.7), var(--glass-bg, rgba(255, 255, 255, 0.65)));
+  backdrop-filter: var(--glass-blur, blur(16px));
+  -webkit-backdrop-filter: var(--glass-blur, blur(16px));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.6));
+  box-shadow: var(--shadow-card, 0 4px 24px rgba(60, 64, 67, 0.08));
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.pro-link-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(26, 115, 232, 0.12);
+  border-color: rgba(26, 115, 232, 0.3);
+}
+
+.pro-link-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.pro-link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--color-primary-light, #e8f0fe);
+  color: var(--color-primary, #1a73e8);
+  flex-shrink: 0;
+}
+
+.pro-link-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.pro-link-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.pro-link-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text, #1f1f1f);
+}
+
+.pro-link-desc {
+  font-size: 12px;
+  color: var(--color-text-secondary, #5f6368);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pro-link-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--color-primary, #1a73e8);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.pro-link-card:hover .pro-link-action {
+  background: var(--color-primary-hover, #0b57d0);
+}
+
+.pro-link-action svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 480px) {
+  .pro-link-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .pro-link-action {
+    align-self: stretch;
+    justify-content: center;
+  }
+}
 </style>
