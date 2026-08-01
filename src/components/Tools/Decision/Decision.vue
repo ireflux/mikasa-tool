@@ -73,17 +73,17 @@ onMounted(() => {
       </div>
 
       <div>
-        <el-input type="textarea" v-model="info.scope" :rows="5"></el-input>
+        <el-input v-model="info.scope" type="textarea" :rows="5"></el-input>
       </div>
 
-      <div class="text-5xl h-24 leading-[6rem]" v-if="info.randomVal != ''">
+      <div v-if="info.randomVal != ''" class="text-5xl h-24 leading-[6rem]">
         {{ info.randomVal }}
         <!-- <el-text class=""></el-text> -->
       </div>
 
       <div class="mt-3">
-        <el-button @click="choose" v-if="!chooseStatus" type="primary">帮我决定</el-button>
-        <el-button @click="choose" type="primary" disabled v-else>决定中...</el-button>
+        <el-button v-if="!chooseStatus" type="primary" @click="choose">帮我决定</el-button>
+        <el-button v-else type="primary" disabled @click="choose">决定中...</el-button>
         <el-button @click="clear">清空</el-button>
       </div>
     </div>

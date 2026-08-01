@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Tools } from '@element-plus/icons-vue'
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
+import { useI18n } from 'vue-i18n'
 import { useToolsStore } from '@/store/modules/tools'
 const info = reactive({
   feedbackUrl: import.meta.env.VITE_FEEDBACK_URL || 'javascript:void(0)',
@@ -19,6 +20,11 @@ const info = reactive({
 
 //store
 const toolsStore = useToolsStore()
+const { t } = useI18n()
+
+onMounted(() => {
+  toolsStore.getRecommend()
+})
 
 //点击走马灯
 const clickCarousel = (url: string) => {
@@ -29,7 +35,7 @@ const clickCarousel = (url: string) => {
 <template>
   <div>
     <!-- adv -->
-    <div class="mt-3" v-if="info.advShow === 'true'">
+    <div v-if="info.advShow === 'true'" class="mt-3">
       <el-carousel
         height="130px"
         :autoplay="true"
@@ -42,9 +48,9 @@ const clickCarousel = (url: string) => {
     </div>
     <!-- hot tools -->
     <div class="mt-3 rounded-[10px] border border-solid p-3 c-xs:mr-3 c-xs:ml-3" style="border-color: var(--color-border);">
-      <div class="text-base font-bold" style="color: var(--color-text-secondary);">随机推荐</div>
+      <div class="text-base font-bold" style="color: var(--color-text-secondary);">{{ t('ui.randomRecommend') }}</div>
       <ul class="mt-3">
-        <RouterLink :to="item.url" class="flex items-center p-1.5 rounded-md transition-colors" style="color: var(--color-text);" v-for="(item, index) in toolsStore.recommends" :key="index">
+        <RouterLink v-for="(item, index) in toolsStore.localizedRecommends" :key="index" :to="item.url" class="flex items-center p-1.5 rounded-md transition-colors" style="color: var(--color-text);">
           <el-icon class="mr-1"><Tools /></el-icon>
           <div>{{ item.title }}</div>
         </RouterLink>

@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { RouterLink } from "vue-router"
 import { StarFilled, ArrowDown } from '@element-plus/icons-vue'
+import { useI18n } from 'vue-i18n'
 import { useToolsStore } from '@/store/modules/tools'
 import { useCollectionStore } from '@/store/modules/collection'
 import { ElMessage } from 'element-plus'
@@ -10,6 +11,7 @@ import { useRoute } from "vue-router"
 const toolsStore = useToolsStore()
 const collectionStore = useCollectionStore()
 const route = useRoute()
+const { t } = useI18n()
 
 // 收藏区域折叠状态 — 空时默认收起，有内容默认展开
 const collectCollapsed = ref(true)
@@ -23,9 +25,9 @@ const toggleCollect = () => {
 const removeCollect = (url: string) => {
   const success = collectionStore.removeCollect(url)
   if (success) {
-    ElMessage.success('已取消收藏');
+    ElMessage.success(t('ui.uncollectSuccess'));
   } else {
-    ElMessage.error('取消收藏失败');
+    ElMessage.error(t('ui.uncollectFail'));
   }
 }
 
@@ -49,7 +51,7 @@ onMounted(() => {
     <div id="collect">
       <!-- 收藏标题 — 可点击展开/收起 -->
       <div class="collect-header mt-8 mb-3" @click="toggleCollect">
-        <span class="text-xl font-bold text-[--base-black] tech-title">收藏工具</span>
+        <span class="text-xl font-bold text-[--base-black] tech-title">{{ t('ui.favorites') }}</span>
         <el-icon class="collect-arrow" :class="{ 'is-collapsed': collectCollapsed }">
           <ArrowDown />
         </el-icon>
@@ -65,40 +67,40 @@ onMounted(() => {
               :style="{ '--stagger-i': index % 8 }"
             >
               <div class="flex items-center border-b pb-2">
-                <el-image :src="item.logo" class="w-10 h-10 min-h-[2.5rem] min-w-[2.5rem] rounded-xl bg-[#f0f4f9] p-1"></el-image>
+                <el-image :src="item.logo" class="w-10 h-10 min-h-[2.5rem] min-w-[2.5rem] rounded-xl bg-[var(--glass-bg-soft)] p-1"></el-image>
                 <div class="flex flex-col ml-2 w-full">
                   <div class="flex justify-between">
-                    <div class="font-semibold text-lg line-clamp-1">{{ item.title }}</div>
+                    <div class="font-semibold text-lg line-clamp-1">{{ t(item.title) }}</div>
                     <el-button 
                       :icon="StarFilled" 
                       circle 
                       size="small" 
-                      @click.prevent="removeCollect(item.url)" 
-                      type="warning"
+                      type="warning" 
+                      @click.prevent="removeCollect(item.url)"
                     />
                   </div>
                   <div class="flex justify-between">
-                    <el-text size="small">{{ item.cate }}</el-text>
+                    <el-text size="small">{{ t(item.cate) }}</el-text>
                   </div>
                 </div>
               </div>
               <div class="flex items-center justify-between mt-2">
-                <el-text line-clamp="2">{{ item.desc }}</el-text>
+                <el-text line-clamp="2">{{ t(item.desc) }}</el-text>
               </div>
             </router-link>
             <!-- 占位 div -->
             <div class="w-[24%] c-md:w-[24%] c-sm:w-[32%] "></div>
         </div>
         <div v-else class="mt-5 p-4 glass rounded-2xl">
-          <el-empty description="暂无收藏工具" class="collect-empty" />
+          <el-empty :description="t('ui.noFavorites')" class="collect-empty" />
         </div>
       </div>
     </div>
 
     <!-- 工具分类列表 -->
-    <div v-for="(cate, index) in toolsStore.cates" :key="index">
+    <div v-for="(cate, index) in toolsStore.localizedCates" :key="index">
       <!-- cate title -->
-      <div class="mt-8 mb-3 text-xl font-bold text-[--base-black] tech-title" :id="'cate_' + cate.id">
+      <div :id="'cate_' + cate.id" class="mt-8 mb-3 text-xl font-bold text-[--base-black] tech-title">
         {{ cate.title }}
       </div>
       <!-- card -->
@@ -111,7 +113,7 @@ onMounted(() => {
             :style="{ '--stagger-i': index % 8 }"
           >
             <div class="flex items-center border-b pb-2">
-              <el-image :src="item.logo" class="w-10 h-10 min-h-[2.5rem] min-w-[2.5rem] rounded-xl bg-[#f0f4f9] p-1"></el-image>
+              <el-image :src="item.logo" class="w-10 h-10 min-h-[2.5rem] min-w-[2.5rem] rounded-xl bg-[var(--glass-bg-soft)] p-1"></el-image>
               <div class="flex flex-col ml-2 w-full">
                 <div class="flex">
                   <div class="font-semibold text-lg line-clamp-1">{{ item.title }}</div>

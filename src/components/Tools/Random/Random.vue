@@ -45,8 +45,8 @@ const random = () => {
       </div>
 
       <div>
-        <el-button @click="random" type="primary" size="large" v-if="!info.genStatus">生成</el-button>
-        <el-button @click="random" type="primary" size="large" disabled v-else>生成...</el-button>
+        <el-button v-if="!info.genStatus" type="primary" size="large" @click="random">生成</el-button>
+        <el-button v-else type="primary" size="large" disabled @click="random">生成...</el-button>
       </div>
     </div>
     <!-- desc -->

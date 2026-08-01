@@ -186,7 +186,7 @@ const clearInput = () => {
         </div>
         
         <!-- 密钥输入（仅Hmac算法需要） -->
-        <div class="flex items-center gap-2 mb-2" v-if="isHmacAlgorithm">
+        <div v-if="isHmacAlgorithm" class="flex items-center gap-2 mb-2">
           <el-text>密钥(HMAC算法必填)：</el-text>
           <el-input
             v-model="key"

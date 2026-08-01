@@ -39,8 +39,8 @@ const throwCoin = () => {
 				</div>
 			</div>
 			<div class="flex justify-center">
-				<el-button type="primary" class="w-48" size="large" @click="throwCoin" v-if="!genStatus">抛硬币</el-button>
-				<el-button type="primary" class="w-48" size="large" disabled v-else>抛硬币...</el-button>
+				<el-button v-if="!genStatus" type="primary" class="w-48" size="large" @click="throwCoin">抛硬币</el-button>
+				<el-button v-else type="primary" class="w-48" size="large" disabled>抛硬币...</el-button>
 			</div>
     </div>
 

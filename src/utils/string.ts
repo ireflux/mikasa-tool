@@ -9,7 +9,7 @@ import clipboard3 from 'vue-clipboard3'
  * @param reg 
  */
 export function transferred(str: string, reg: string = "`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）;—|【】‘；：”“'。，、？") {
-    let pattern = new RegExp("[" + reg + "]");
+    const pattern = new RegExp("[" + reg + "]");
     let res = '';
     Array.from(str).forEach((char: any) => {
       res += char.replace(pattern, `\\${char}`);
@@ -75,8 +75,8 @@ export function numberToChinese(num: number): string {
   // const units = ['', '拾', '佰', '仟', '万', '亿'];  
   const units = ['', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿', '拾', '佰', '仟', '万'];  
   const chars = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];  
-  let numStr = num.toString()
-  let len = numStr.length
+  const numStr = num.toString()
+  const len = numStr.length
   if (len > 13) {
     ElMessage({
       message: "金额太大无法转换",
@@ -90,7 +90,7 @@ export function numberToChinese(num: number): string {
   let chinese = ''
 
   for (let i = 0; i < len; i++) {  
-    let n = parseInt(numStr[i]);  
+    const n = parseInt(numStr[i]);  
     if (n === 0) {  
       isZero = true;  
       zeroCount++;  

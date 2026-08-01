@@ -8,7 +8,7 @@ import '@codemirror/search';
 import '@codemirror/state';
 import '@codemirror/commands';
 import * as prettier from "prettier/standalone";
-import * as parserCss from 'prettier/parser-postcss';
+import * as parserCSS from 'prettier/parser-postcss';
 import { ElMessage } from 'element-plus'
 import { minify } from "csso"
 
@@ -22,7 +22,7 @@ const info = reactive({
 //格式化
 const formatCode = async () => {
   try {
-    info.code = await prettier.format(info.code, { parser: "css", plugins: [parserCss]})
+    info.code = await prettier.format(info.code, { parser: "css", plugins: [parserCSS]})
   } catch (error) {
     console.log(error)
     ElMessage({

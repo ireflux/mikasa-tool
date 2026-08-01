@@ -31,10 +31,10 @@
             <img 
               ref="image" 
               :src="imageUrl" 
-              @load="handleImageLoad"
-              @click="handleImageClick"
               class="preview-image"
               crossorigin="anonymous"
+              @load="handleImageLoad"
+              @click="handleImageClick"
             />
             <canvas 
               ref="canvas" 

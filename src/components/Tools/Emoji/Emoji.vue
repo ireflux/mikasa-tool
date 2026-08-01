@@ -700,8 +700,8 @@ const copyEmoji = (emoji: string) => {
             v-for="category in emojiCategories"
             :key="category.id"
             :type="selectedCategory === category.id ? 'primary' : 'default'"
-            @click="selectedCategory = category.id"
             size="small"
+            @click="selectedCategory = category.id"
           >
             {{ category.name }}
           </el-button>

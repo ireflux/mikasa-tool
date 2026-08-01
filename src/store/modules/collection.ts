@@ -16,11 +16,12 @@ export const useCollectionStore = defineStore('collection', {
         const stored = localStorage.getItem(COLLECTED_TOOLS_KEY);
         if (stored) {
           const tools = JSON.parse(stored) as ToolsInfo[];
-          // 按 url 从当前工具目录重新映射 logo，避免本地存储中的旧图标路径失效
+          // 按 url 从工具目录重新映射（title/desc/cate 恢复为 i18n key，使其跟随语言切换），
+          // 并刷新 logo，避免本地存储中的旧数据失效
           const catalog = toolsList();
           this.collectedTools = tools.map(tool => {
             const current = catalog.find(t => t.url === tool.url);
-            return current ? { ...tool, logo: current.logo } : tool;
+            return current ? { ...current } : tool;
           });
         }
       } catch (error) {
@@ -36,11 +37,12 @@ export const useCollectionStore = defineStore('collection', {
         console.error('保存收藏工具失败:', error);
       }
     },
-    // 添加收藏
+    // 添加收藏（存入 i18n key 形式的目录项，保证收藏跟随语言切换）
     addCollect(tool: ToolsInfo) {
       const isCollected = this.collectedTools.some(t => t.url === tool.url);
       if (!isCollected) {
-        this.collectedTools.push(tool);
+        const catalog = toolsList();
+        this.collectedTools.push(catalog.find(t => t.url === tool.url) ?? { ...tool });
         this.saveCollectedTools();
         return true;
       }

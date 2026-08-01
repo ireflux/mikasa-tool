@@ -64,7 +64,7 @@ const morseCodeMap: Record<string, string> = {
  */
 export function toMorse(text: string) { 
   let morseCode = '';  
-  for (let char of text.toUpperCase()) {  
+  for (const char of text.toUpperCase()) {  
     if (/[\u4e00-\u9fa5]/g.test(char)) {
       //中文转摩斯电码
       morseCode += encode(char) || '?'
@@ -81,7 +81,7 @@ export function toMorse(text: string) {
  */
 export function toText(morse: string) {
   let text = '';
-  let morseArr = morse.split(' ').filter(item => item.trim() !== "")
+  const morseArr = morse.split(' ').filter(item => item.trim() !== "")
   for (let i = 0; i < morseArr.length; i++) {
     if (morseArr[i].length > 6) {
       //摩斯电码转中文
@@ -96,7 +96,7 @@ export function toText(morse: string) {
 //中文转摩斯电码
 export function chineseToMorse(chinese: string): string {
   //先转换成ascii码
-  let asciiCode = chinese.charCodeAt(0).toString()
+  const asciiCode = chinese.charCodeAt(0).toString()
   //转换
   return asciiCode.split('').map(char => morseCodeMap[char] || '').join('');  
 }

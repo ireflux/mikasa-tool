@@ -28,8 +28,8 @@
           <div class="test-controls">
             <el-button 
               type="primary" 
-              @click="startTest" 
-              :disabled="testStatus === 'waiting' || testStatus === 'active'"
+              :disabled="testStatus === 'waiting' || testStatus === 'active'" 
+              @click="startTest"
             >
               开始测试
             </el-button>

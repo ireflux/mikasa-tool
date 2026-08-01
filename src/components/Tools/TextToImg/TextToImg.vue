@@ -123,14 +123,14 @@ onBeforeUnmount(() => {
         <Toolbar
           class="border-b"
           :editor="editorRef"
-          :defaultConfig="toolbarConfig"
+          :default-config="toolbarConfig"
           :mode="info.mode"
         />
         <Editor
           v-model="valueHtml"
-          :defaultConfig="editorConfig"
+          :default-config="editorConfig"
           :mode="info.mode"
-          @onCreated="handleCreated"
+          @on-created="handleCreated"
         />
         <div ref="poster" class="absolute top-0 -z-10" v-html="valueHtml"></div>
       </div>

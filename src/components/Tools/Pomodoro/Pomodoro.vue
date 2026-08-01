@@ -40,15 +40,15 @@
           <div class="timer-controls">
             <el-button 
               type="primary" 
-              @click="startTimer" 
-              :disabled="isRunning"
+              :disabled="isRunning" 
+              @click="startTimer"
             >
               开始
             </el-button>
             <el-button 
               type="warning" 
-              @click="pauseTimer" 
-              :disabled="!isRunning"
+              :disabled="!isRunning" 
+              @click="pauseTimer"
             >
               暂停
             </el-button>

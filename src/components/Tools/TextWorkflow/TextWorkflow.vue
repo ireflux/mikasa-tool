@@ -169,16 +169,16 @@ const clearInput = () => {
               <el-button
                 type="text"
                 size="small"
-                @click="moveStepUp(index)"
                 :disabled="index === 0"
+                @click="moveStepUp(index)"
               >
                 <el-icon><ArrowUp /></el-icon>
               </el-button>
               <el-button
                 type="text"
                 size="small"
-                @click="moveStepDown(index)"
                 :disabled="index === workflowSteps.length - 1"
+                @click="moveStepDown(index)"
               >
                 <el-icon><ArrowDown /></el-icon>
               </el-button>

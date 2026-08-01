@@ -35,6 +35,10 @@
   --glass-border: rgba(255, 255, 255, 0.6);
   --glass-blur: blur(16px) saturate(180%);
   --glass-blur-strong: blur(20px) saturate(180%);
+  --glass-overlay-bg: rgba(255, 255, 255, 0.92);
+
+  /* Hover / subtle surface tint */
+  --color-hover: rgba(31, 31, 31, 0.06);
 
   /* Shadows — soft layered */
   --shadow-card: 0 4px 24px rgba(60, 64, 67, 0.08);
@@ -54,6 +58,87 @@
   /* Legacy compatibility */
   --base-gray: #f8faff;
   --base-black: #1f1f1f;
+}
+
+/* ============================================
+   Dark Theme — Google Material Dark palette
+   ============================================ */
+html.dark {
+  /* Colors — Google Dark Blue */
+  --color-primary: #8ab4f8;
+  --color-primary-hover: #aecbfa;
+  --color-primary-light: #1e3a5f;
+  --color-primary-light2: #2a4a75;
+
+  /* Colors — Neutral */
+  --color-bg: #1b1d21;
+  --color-surface: #2a2c30;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-hover: rgba(255, 255, 255, 0.2);
+
+  /* Colors — Text */
+  --color-text: #e8eaed;
+  --color-text-secondary: #c4c7c5;
+  --color-text-muted: #9aa0a6;
+
+  /* Colors — Status (Google Dark) */
+  --color-success: #81c995;
+  --color-warning: #fdd663;
+  --color-danger: #f28b82;
+
+  /* Hover / subtle surface tint */
+  --color-hover: rgba(255, 255, 255, 0.08);
+
+  /* Glass */
+  --glass-bg: rgba(42, 44, 48, 0.72);
+  --glass-bg-strong: rgba(42, 44, 48, 0.88);
+  --glass-bg-soft: rgba(42, 44, 48, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-overlay-bg: rgba(32, 34, 38, 0.92);
+
+  /* Shadows — deeper in dark */
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.55);
+  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+  /* Legacy compatibility */
+  --base-gray: #1b1d21;
+  --base-black: #e8eaed;
+}
+
+/* Element Plus Dark Theme Overrides */
+html.dark {
+  --el-color-primary: #8ab4f8;
+  --el-color-primary-light-3: #6a9df0;
+  --el-color-primary-light-5: #5b8de6;
+  --el-color-primary-light-7: #3d6bb8;
+  --el-color-primary-light-8: #2a4a75;
+  --el-color-primary-light-9: #1e3a5f;
+  --el-color-primary-dark-2: #aecbfa;
+
+  --el-color-success: #81c995;
+  --el-color-warning: #fdd663;
+  --el-color-danger: #f28b82;
+  --el-color-error: #f28b82;
+
+  --el-border-color: rgba(255, 255, 255, 0.14);
+  --el-border-color-hover: rgba(255, 255, 255, 0.26);
+  --el-border-color-light: rgba(255, 255, 255, 0.1);
+  --el-border-color-lighter: rgba(255, 255, 255, 0.08);
+
+  --el-fill-color-blank: rgba(42, 44, 48, 0.8);
+  --el-fill-color-light: rgba(42, 44, 48, 0.8);
+  --el-fill-color-lighter: rgba(42, 44, 48, 0.7);
+
+  --el-text-color-primary: #e8eaed;
+  --el-text-color-regular: #c4c7c5;
+  --el-text-color-secondary: #9aa0a6;
+  --el-text-color-placeholder: #80868b;
+
+  --el-box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --el-box-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --el-box-shadow-lighter: 0 1px 4px rgba(0, 0, 0, 0.2);
+  --el-box-shadow-dark: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 /* ============================================
@@ -215,6 +300,31 @@ body {
   50% { transform: translate(5vw, -7vh) scale(1.08); }
 }
 
+/* Dark — aurora dims into deep tones */
+html.dark .aurora-blob--blue {
+  background: #16294d;
+  opacity: 0.28;
+}
+
+html.dark .aurora-blob--green {
+  background: #14301f;
+  opacity: 0.25;
+}
+
+html.dark .aurora-blob--yellow {
+  background: #33280f;
+  opacity: 0.22;
+}
+
+/* Dark — scrollbar */
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
 /* ============================================
    Shared Utility Classes — Tool Components
    ============================================ */
@@ -264,7 +374,7 @@ body {
 
 /* Read-only result display */
 .tool-result {
-  background: rgba(248, 250, 255, 0.7);
+  background: var(--glass-bg-strong);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-btn);
   padding: 0.75rem;
@@ -376,7 +486,7 @@ body {
 /* Dialog — frosted glass */
 .el-dialog {
   border-radius: var(--radius-card);
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--glass-overlay-bg);
   backdrop-filter: var(--glass-blur-strong);
   -webkit-backdrop-filter: var(--glass-blur-strong);
   box-shadow: var(--shadow-dropdown);
@@ -385,7 +495,7 @@ body {
 /* Message box — frosted glass */
 .el-message-box {
   border-radius: var(--radius-card);
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--glass-overlay-bg);
   backdrop-filter: var(--glass-blur-strong);
   -webkit-backdrop-filter: var(--glass-blur-strong);
 }
@@ -393,7 +503,7 @@ body {
 /* Message — frosted glass */
 .el-message {
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--glass-overlay-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--shadow-dropdown);
@@ -402,7 +512,7 @@ body {
 /* Drawer */
 .el-drawer {
   border-radius: 0;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--glass-overlay-bg);
   backdrop-filter: var(--glass-blur-strong);
   -webkit-backdrop-filter: var(--glass-blur-strong);
 }
@@ -430,7 +540,7 @@ body {
 }
 
 .el-select-dropdown {
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--glass-overlay-bg);
   backdrop-filter: var(--glass-blur-strong);
   -webkit-backdrop-filter: var(--glass-blur-strong);
 }

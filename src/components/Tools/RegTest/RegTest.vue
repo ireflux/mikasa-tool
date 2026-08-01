@@ -126,7 +126,7 @@ const execMatch = () => {
           :style="{ height: '300px' }"
           :autofocus="true"
           :indent-with-tab="true" 
-          :tabSize="2"
+          :tab-size="2"
         />
       </div>
 
@@ -134,7 +134,7 @@ const execMatch = () => {
         <el-text class="font-bold">常用正则：</el-text>
         <ul class="flex flex-wrap">
           <li v-for="(item, index) in info.regList" :key="index">
-            <el-button link type="primary" @click="useReg(item.reg)" class="mr-2 mt-2">{{ item.title }}</el-button>
+            <el-button link type="primary" class="mr-2 mt-2" @click="useReg(item.reg)">{{ item.title }}</el-button>
           </li>
         </ul>
         <div class="flex items-center mt-4">
@@ -153,7 +153,7 @@ const execMatch = () => {
 
       <div class="mt-3 min-h-md bg-gray-100 p-3 mb-3">
         <el-text>共找到 {{ info.matchNum }} 处匹配结果</el-text>
-        <el-input type="textarea" :rows="4" readonly v-model="info.matchRes"></el-input>
+        <el-input v-model="info.matchRes" type="textarea" :rows="4" readonly></el-input>
       </div>
     </div>
 

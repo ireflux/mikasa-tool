@@ -37,7 +37,7 @@ const copyRes = async () => {
 
     <div class="tool-card">
       <div>
-        <el-input type="textarea" :rows="8" v-model="info.content"></el-input>
+        <el-input v-model="info.content" type="textarea" :rows="8"></el-input>
       </div>
 
       <div class="mt-4">
@@ -46,7 +46,7 @@ const copyRes = async () => {
       </div>
 
       <div class="mt-3 min-h-md bg-gray-100 p-3 mb-3">
-        <el-input type="textarea" :rows="8" v-model="removeDuplicate"></el-input>
+        <el-input v-model="removeDuplicate" type="textarea" :rows="8"></el-input>
       </div>
     </div>
 

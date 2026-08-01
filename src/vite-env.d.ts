@@ -1,8 +1,10 @@
 /// <reference types="vite/client" />
+/// <reference types="vite-plugin-pwa/client" />
 
 declare module 'virtual:svg-icons-register'
 
 declare module 'element-plus/dist/locale/zh-cn.mjs'
+declare module 'element-plus/dist/locale/en.mjs'
 declare module 'default-passive-events'
 declare module 'csso'
 declare module 'lodash'

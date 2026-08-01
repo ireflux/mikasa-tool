@@ -130,7 +130,7 @@ onMounted(() => {
         <el-checkbox v-model="info.checkedSign" label="其他符号(~!@#$%^&*()-+_=,.)"  @change="(val: any) => (changeCheckBox(val, 3))"/>
       </div>
       <div>
-        <el-input class="" v-model="info.char">
+        <el-input v-model="info.char" class="">
           <template #prepend>包含字符:</template>
         </el-input>
         <el-input v-model="info.pwLen" placeholder="范围1~100" class="mt-3" max="100" type="number">
@@ -146,7 +146,7 @@ onMounted(() => {
       </div>
       <!-- res -->
       <div>
-        <el-input type="textarea" :autosize="info.autosize" v-model="info.resStr"></el-input>
+        <el-input v-model="info.resStr" type="textarea" :autosize="info.autosize"></el-input>
       </div>
     </div>
 

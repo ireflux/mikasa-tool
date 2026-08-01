@@ -22,8 +22,8 @@ const info = reactive({
 
     <div class="">
       <div class="flex justify-between">
-        <el-input type="textarea" :rows="16" v-model="info.leftTxt"></el-input>
-        <el-input type="textarea" :rows="16" v-model="info.rightTxt" class="ml-3"></el-input>
+        <el-input v-model="info.leftTxt" type="textarea" :rows="16"></el-input>
+        <el-input v-model="info.rightTxt" type="textarea" :rows="16" class="ml-3"></el-input>
       </div>
       <code-diff
         :old-string="info.leftTxt"

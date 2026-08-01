@@ -61,7 +61,7 @@ const copyRes = async () => {
           :style="{ height: '200px' }"
           :autofocus="true"
           :indent-with-tab="true" 
-          :tabSize="2"
+          :tab-size="2"
         />
       </div>
 
@@ -72,7 +72,7 @@ const copyRes = async () => {
       </div>
 
       <div class="mt-3 min-h-md bg-gray-100 p-3 mb-3">
-        <el-input type="textarea" :rows="8" v-model="info.tranRes"></el-input>
+        <el-input v-model="info.tranRes" type="textarea" :rows="8"></el-input>
       </div>
     </div>
 

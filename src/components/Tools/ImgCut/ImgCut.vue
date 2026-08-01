@@ -98,9 +98,9 @@ onMounted(() => {
 
     <div class="tool-card">
       <el-upload
+        ref="dataFileRef"
         v-model:file-list="fileList"
         class="dataFileRef flex"
-        ref="dataFileRef"
         accept="image/*"
         :http-request="updateDataFile"
         :on-exceed="handleExceed"
@@ -116,7 +116,7 @@ onMounted(() => {
       </div>
 
 
-      <div class="mt-3 min-h-md bg-gray-100 p-3 mb-3 flex flex-col" v-if="image.src">
+      <div v-if="image.src" class="mt-3 min-h-md bg-gray-100 p-3 mb-3 flex flex-col">
         <!-- 预览 -->
         <div class="mb-3">
           <el-text>预览: </el-text>
@@ -129,7 +129,7 @@ onMounted(() => {
         <div>
           <el-text>原图: </el-text>
           <div>
-            <img :src="image.src" alt="原图" v-if="image.src"/>
+            <img v-if="image.src" :src="image.src" alt="原图"/>
           </div>
         </div>
       </div>

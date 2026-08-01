@@ -150,10 +150,10 @@ const gen = () => {
           :height="info.height"
           :value="info.content"
           :margin="info.margin"
-          :qrOptions="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: info.errorCorrectionLevel }"
-          :imageOptions="{ hideBackgroundDots: true, imageSize: 0.4, margin: 0 }"
+          :qr-options="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: info.errorCorrectionLevel }"
+          :image-options="{ hideBackgroundDots: true, imageSize: 0.4, margin: 0 }"
           :image="info.fileList[0]"
-          :dotsOptions="{
+          :dots-options="{
             type: 'none',
             color: '#26249a',
             gradient: {
@@ -165,10 +165,10 @@ const gen = () => {
               ],
             },
           }"
-          :backgroundOptions="{ color: info.bgColor }"
-          :cornersSquareOptions="{ type: 'square', color: '#000000' }"
-          :cornersDotOptions="{ type: undefined, color: '#000000' }"
-          fileExt="png"
+          :background-options="{ color: info.bgColor }"
+          :corners-square-options="{ type: 'square', color: '#000000' }"
+          :corners-dot-options="{ type: undefined, color: '#000000' }"
+          file-ext="png"
           myclass="my-qur"
           imgclass="img-qr"
         />

@@ -46,20 +46,20 @@ const resetDice = () => {
       <div class="flex justify-center grow-[3]">
         <div class="flex flex-wrap h-96 items-center">  
           <!-- 骰子组件 -->
-          <DiceCore ref="diceRef" v-for="i in diceNum" :key="resetDiceKey" :class="[diceNum == 1 ? 'dice_full' : '', diceNum == 3 && i == 1 ? 'dice_full' : 'dice_default', diceNum == 5 && i == 3 ? 'dice_full' : 'dice_default']"/>
+          <DiceCore v-for="i in diceNum" ref="diceRef" :key="resetDiceKey" :class="[diceNum == 1 ? 'dice_full' : '', diceNum == 3 && i == 1 ? 'dice_full' : 'dice_default', diceNum == 5 && i == 3 ? 'dice_full' : 'dice_default']"/>
         </div>
       </div>
       <div class="">
         <div class="ml-5 flex justify-center">
           <el-text style="">骰子数量：</el-text>
           <div class="w-4/6">
-            <el-slider class="w-72 ml-3" v-model="diceNum" :min="1" :max="6" :step="1" blockSize="18" :showValue="true"></el-slider>
+            <el-slider v-model="diceNum" class="w-72 ml-3" :min="1" :max="6" :step="1" block-size="18" :show-value="true"></el-slider>
           </div>
         </div>
       </div>
       <div class="mb-5 flex justify-center">
-        <el-button type="primary" class="w-48" size="large" @click="shake" v-if="!genStatus">投骰子</el-button>
-        <el-button type="primary" class="w-48" size="large" disabled v-else>投骰子...</el-button>
+        <el-button v-if="!genStatus" type="primary" class="w-48" size="large" @click="shake">投骰子</el-button>
+        <el-button v-else type="primary" class="w-48" size="large" disabled>投骰子...</el-button>
         <el-button type="primary" class="w-48" size="large" @click="resetDice">重置</el-button>
       </div>
     </div>

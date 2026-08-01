@@ -81,7 +81,7 @@ const copyRes = async () => {
           :style="{ height: '400px' }"
           :autofocus="true"
           :indent-with-tab="true" 
-          :tabSize="2"
+          :tab-size="2"
         />
       </div>
       
@@ -92,7 +92,7 @@ const copyRes = async () => {
         <el-button type="primary" @click="clear">清空</el-button>
       </div>
 
-      <div class="mt-3 min-h-md bg-red-100 p-3 mb-3" v-show="info.isParseErr">
+      <div v-show="info.isParseErr" class="mt-3 min-h-md bg-red-100 p-3 mb-3">
         <el-text type="danger">{{ info.parseErr }}</el-text>
       </div>
     </div>

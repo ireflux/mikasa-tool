@@ -2,8 +2,8 @@
  * 转换成Spreadsheet数据格式
  */
 export function toSpreadsheetData(data: { value: (string | number)[] }[], type = 'bar'): Record<number, { cells: Record<number, { text: string }> }> {
-  let res: Record<number, { cells: Record<number, { text: string }> }> = {}
-  let columnLen = data[0].value.length
+  const res: Record<number, { cells: Record<number, { text: string }> }> = {}
+  const columnLen = data[0].value.length
   switch(type) {
     case 'bar':
       for (let i = 0; i < columnLen; i++) {
@@ -25,8 +25,8 @@ export function toSpreadsheetData(data: { value: (string | number)[] }[], type =
  * 转换成echarts使用的数据 - 基础格式(适用于柱状图、折线图等)
  */
 export function toEchartsData(data: any): [string[], string[]] {
-  let tmpColumn: string[] = [];
-  let tmpValue: string[] = [];
+  const tmpColumn: string[] = [];
+  const tmpValue: string[] = [];
   for (const item of Object.keys(data.rows)) {
     if (item === 'len') {
       continue
@@ -44,7 +44,7 @@ export function toEchartsData(data: any): [string[], string[]] {
  * @returns 
  */
 export function toEchartsPieData(data: any): { name: string; value: string }[] {
-  let tmpArr: { name: string; value: string }[] = []
+  const tmpArr: { name: string; value: string }[] = []
   for (const item of Object.keys(data.rows)) {
     if (item === 'len') {
       continue
@@ -70,9 +70,9 @@ export function tranObjAndColumn(data: any, type = 'toObj'): any[] {
       return returnData;
     }
     //转换成饼图使用的obj
-    let nameArr = data[0];
-    let valueArr = data[1];
-    let tmpArr: Array<Object> = []
+    const nameArr = data[0];
+    const valueArr = data[1];
+    const tmpArr: Array<object> = []
 
     for (const item of Object.keys(nameArr)) {
       if (item === 'len') {
@@ -86,8 +86,8 @@ export function tranObjAndColumn(data: any, type = 'toObj'): any[] {
     returnData = tmpArr
   } else if (type === 'toColumn') {
     //饼图对象转换成列数组
-    let nameArr = [] as string[]
-    let valueArr = [] as number[]
+    const nameArr = [] as string[]
+    const valueArr = [] as number[]
     for (const item of Object.keys(data)) {
       nameArr.push(data[item]?.name)
       valueArr.push(data[item]?.value)
@@ -99,9 +99,9 @@ export function tranObjAndColumn(data: any, type = 'toObj'): any[] {
       return returnData;
     }
     //转换成饼图使用的obj
-    let nameArr = data[0];
-    let valueArr = data[1];
-    let tmpArr: Array<any> = []
+    const nameArr = data[0];
+    const valueArr = data[1];
+    const tmpArr: Array<any> = []
 
     for (const item of Object.keys(nameArr)) {
       if (item === 'len') {

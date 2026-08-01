@@ -60,7 +60,7 @@ const copyRes = async (resStr: string) => {
       </div>
       <!-- res -->
       <div>
-        <el-input type="textarea" :autosize="info.autosize" v-model="info.resStr"></el-input>
+        <el-input v-model="info.resStr" type="textarea" :autosize="info.autosize"></el-input>
       </div>
     </div>
 

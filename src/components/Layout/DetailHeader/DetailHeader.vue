@@ -2,12 +2,14 @@
 import { Star, StarFilled } from '@element-plus/icons-vue'
 import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useToolsStore } from '@/store/modules/tools'
 import { useCollectionStore } from '@/store/modules/collection'
 import { ElMessage } from 'element-plus'
 import {rtrim} from '@/utils/string'
 const props = defineProps({  title: String,  id: Number})
 const route = useRoute()
+const { t } = useI18n()
 //查询参数
 const searchParam = reactive({
   cateId: 0,
@@ -32,7 +34,7 @@ const getToolInfo = async () => {
 const toggleCollect = () => {
   const toolInfo = toolsStore.currentTool
   if (!toolInfo) {
-    ElMessage.warning('获取工具信息失败');
+    ElMessage.warning(t('ui.toolInfoFail'));
     return;
   }
   
@@ -41,18 +43,18 @@ const toggleCollect = () => {
     const success = collectionStore.removeCollect(toolInfo.url)
     if (success) {
       isCollected.value = false
-      ElMessage.success('已取消收藏');
+      ElMessage.success(t('ui.uncollectSuccess'));
     } else {
-      ElMessage.error('取消收藏失败');
+      ElMessage.error(t('ui.uncollectFail'));
     }
   } else {
     // 添加收藏
     const success = collectionStore.addCollect(toolInfo)
     if (success) {
       isCollected.value = true
-      ElMessage.success('收藏成功');
+      ElMessage.success(t('ui.collectSuccess'));
     } else {
-      ElMessage.error('收藏失败，可能已经收藏过了');
+      ElMessage.error(t('ui.collectFail'));
     }
   }
 }
@@ -73,11 +75,11 @@ onMounted(() => {
       <el-button 
         :icon="isCollected ? StarFilled : Star" 
         :type="isCollected ? 'warning' : 'default'"
-        @click="toggleCollect"
         class="tech-button"
         size="default"
+        @click="toggleCollect"
       >
-        {{ isCollected ? '已收藏' : '收藏' }}
+        {{ isCollected ? t('ui.collected') : t('ui.collect') }}
       </el-button>
     </div>
   </div>
@@ -127,7 +129,7 @@ onMounted(() => {
 
 /* 未收藏状态按钮样式 */
 .tech-button.is-default {
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--glass-bg-strong);
   border-color: var(--color-border);
   color: var(--color-text-secondary);
 }

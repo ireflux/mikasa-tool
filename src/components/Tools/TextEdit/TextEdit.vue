@@ -67,16 +67,16 @@ const copyRes = async (resStr: string) => {
         <Toolbar
           class=""
           :editor="editorRef"
-          :defaultConfig="toolbarConfig"
+          :default-config="toolbarConfig"
           :mode="info.mode"
         />
         <Editor
-          class="border"
           v-model="content"
-          :defaultConfig="editorConfig"
+          class="border"
+          :default-config="editorConfig"
           :mode="info.mode"
-          @onCreated="handleCreated"
-          @onChange="handleChange"
+          @on-created="handleCreated"
+          @on-change="handleChange"
         />
       </div>
       

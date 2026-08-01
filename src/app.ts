@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { createAppRouter } from './router'
 import { createPinia } from 'pinia'
+import { i18n } from './i18n'
 import 'element-plus/dist/index.css'
 
 export function createAppInstance(isSSR = false) {
@@ -11,6 +12,7 @@ export function createAppInstance(isSSR = false) {
 
   app.use(pinia)
   app.use(router)
+  app.use(i18n)
 
   if (!isSSR) {
     // Browser-only plugins - skipped during SSR

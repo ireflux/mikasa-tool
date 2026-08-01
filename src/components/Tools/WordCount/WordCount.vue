@@ -40,7 +40,7 @@ const changeContent = () => {
 
     <div class="tool-card">
       <div>
-        <el-input type="textarea" :rows="16" v-model="info.content" @input="changeContent"></el-input>
+        <el-input v-model="info.content" type="textarea" :rows="16" @input="changeContent"></el-input>
       </div>
       <div class="mt-3 min-h-md bg-gray-100 p-3 mb-3 flex">
         <div><el-text>总字数：{{ info.sum }}</el-text></div>

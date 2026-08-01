@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ElMessage } from "element-plus";
 //创建axios实例
-let request = axios.create({
+const request = axios.create({
     baseURL: import.meta.env.VITE_IS_MOCK === 'true' ? import.meta.env.VITE_APP_BASE_API :  import.meta.env.VITE_SERVE + import.meta.env.VITE_APP_BASE_API,
     timeout: 5000
 });  
@@ -30,7 +30,7 @@ request.interceptors.response.use((response) => {
     } else if (!error.response) {
         msg = '网络请求失败，请稍后重试';
     } else {
-        let status = error.response.status;
+        const status = error.response.status;
         switch (status) {
             case 401:
                 msg = "登录过期";

@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import { Search } from '@element-plus/icons-vue';
+import { ref, reactive, computed } from 'vue'
+import { Search, Moon, Sunny } from '@element-plus/icons-vue';
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useToolsStore } from '@/store/modules/tools'
 import { useComponentStore } from '@/store/modules/component'
+import { useThemeStore } from '@/store/modules/theme'
+import { localizeTools } from '@/data/tools'
+import { setLocale } from '@/i18n'
+import type { Locale } from '@/i18n'
 import 'element-plus/theme-chalk/display.css'
 import { ToolsInfo } from '@/data/tools.type';
 
@@ -11,15 +16,20 @@ const router = useRouter()
 const loading = ref(false)
 const options = ref<ToolsInfo[]>([])
 const appName = ref(import.meta.env.VITE_APP_TITLE || 'Mikasa Tool')
+const { t, locale } = useI18n()
 //store
 const toolsStore = useToolsStore()
 const componentStore = useComponentStore()
+const themeStore = useThemeStore()
 //查询参数
 const searchParam = reactive({
   cateId: 0,
   title: '',
   route: '',
 })
+
+//本地化后的搜索结果（切换语言自动更新）
+const localizedOptions = computed(() => localizeTools(options.value))
 
 //搜索工具
 const searchTools = async (query: string) => {
@@ -48,12 +58,62 @@ const createUrlShortcut = async () => {
   }
 }
 
+//PWA 安装
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
+}
+const deferredPrompt = ref<BeforeInstallPromptEvent | null>(null)
+const canInstall = ref(false)
+
+const installPwa = async () => {
+  if (!deferredPrompt.value) {
+    createUrlShortcut()
+    return
+  }
+  await deferredPrompt.value.prompt()
+  deferredPrompt.value = null
+  canInstall.value = false
+}
+
+const onBeforeInstallPrompt = (e: Event) => {
+  e.preventDefault()
+  deferredPrompt.value = e as BeforeInstallPromptEvent
+  canInstall.value = true
+}
+
+//客户端监听安装事件
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeinstallprompt', onBeforeInstallPrompt)
+}
+
 const optionClick = (url: string) => {
   router.push(url)
 }
 
 const toggleSidebar = () => {
   componentStore.setLeftComStatus(!componentStore.leftCom)
+}
+
+//主题切换
+const themeOptions = [
+  { value: 'system', label: 'ui.themeSystem' },
+  { value: 'light', label: 'ui.themeLight' },
+  { value: 'dark', label: 'ui.themeDark' },
+]
+
+const setTheme = (mode: 'system' | 'light' | 'dark') => {
+  themeStore.setMode(mode)
+}
+
+//语言切换
+const languageOptions: { value: Locale; label: string }[] = [
+  { value: 'zh', label: '中文' },
+  { value: 'en', label: 'English' },
+]
+
+const setLanguage = (lang: Locale) => {
+  setLocale(lang)
 }
 
 </script>
@@ -76,8 +136,8 @@ const toggleSidebar = () => {
 
       <!-- Mobile: toggle (opens drawer) -->
       <div class="hidden c-sm:block c-md:hidden c-xs:block">
-        <svg @click="componentStore.setleftComDrawerStatus(!componentStore.leftComDrawer)" :class="['icon', { 'rotate': componentStore.leftComDrawer }]" t="1702978210636" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7618" width="30" height="30">
-          <path fill="#444" fill-opacity=".9" d="M895.936 256l-768-0.896 0.128-64L896 192l-0.064 64zM179.2 689.152l202.688-152a32 32 0 0 0 0-51.2L179.2 333.952a32 32 0 0 0-51.2 25.6v304a32 32 0 0 0 51.2 25.6z m12.8-89.6v-176l117.312 88L192 599.552zM896 544H480v-64H896v64z m-0.064 288l-768-0.896 0.128-64L896 768l-0.064 64z" p-id="7619"></path>
+        <svg :class="['icon', { 'rotate': componentStore.leftComDrawer }]" t="1702978210636" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7618" width="30" height="30" @click="componentStore.setleftComDrawerStatus(!componentStore.leftComDrawer)">
+          <path fill="currentColor" fill-opacity=".9" d="M895.936 256l-768-0.896 0.128-64L896 192l-0.064 64zM179.2 689.152l202.688-152a32 32 0 0 0 0-51.2L179.2 333.952a32 32 0 0 0-51.2 25.6v304a32 32 0 0 0 51.2 25.6z m12.8-89.6v-176l117.312 88L192 599.552zM896 544H480v-64H896v64z m-0.064 288l-768-0.896 0.128-64L896 768l-0.064 64z" p-id="7619"></path>
         </svg>
       </div>
       
@@ -87,7 +147,7 @@ const toggleSidebar = () => {
           filterable
           remote
           reserve-keyword
-          placeholder="搜索工具…"
+          :placeholder="t('ui.searchPlaceholder')"
           :remote-method="searchTools"
           :loading="loading"
           class="gmail-search"
@@ -98,7 +158,7 @@ const toggleSidebar = () => {
             <el-icon><Search /></el-icon>
           </template>
           <el-option
-            v-for="item in options"
+            v-for="item in localizedOptions"
             :key="item.url"
             :label="item.title + ' - ' + item.desc"
             :value="item.url"
@@ -111,16 +171,59 @@ const toggleSidebar = () => {
 
     <div class=" w-full md:w-auto flex md:block c-xs:w-auto">
       <ul class="flex mt-4 flex-col md:flex-row md:mt-0 justify-end items-center c-xs:mt-0">
-        <!-- 保存到桌面 -->
+        <!-- 语言切换 -->
+        <li class="ml-3">
+          <el-dropdown trigger="click" @command="setLanguage">
+            <div class="header-icon-btn">
+              <span class="text-sm font-medium">{{ locale === 'zh' ? '中' : 'EN' }}</span>
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item
+                  v-for="opt in languageOptions"
+                  :key="opt.value"
+                  :command="opt.value"
+                  :class="{ 'is-selected': locale === opt.value }"
+                >
+                  {{ opt.label }}
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </li>
+        <!-- 主题切换 -->
+        <li class="ml-3 c-xs:hidden">
+          <el-dropdown trigger="click" @command="setTheme">
+            <div class="header-icon-btn">
+              <el-icon :size="20"><Moon v-if="themeStore.currentDark" /><Sunny v-else /></el-icon>
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item
+                  v-for="opt in themeOptions"
+                  :key="opt.value"
+                  :command="opt.value"
+                  :class="{ 'is-selected': themeStore.mode === opt.value }"
+                >
+                  {{ t(opt.label) }}
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </li>
+        <!-- 安装到桌面（PWA）/ 保存到桌面兜底 -->
         <li class="ml-3 c-xs:hidden">
           <el-tooltip
             class="box-item"
             effect="dark"
-            content="保存到桌面"
+            :content="canInstall ? t('ui.installApp') : t('ui.saveToDesktop')"
             placement="bottom"
           >
-            <div class="header-icon-btn" @click="createUrlShortcut">
-              <svg viewBox="0 0 24 24" width="24" height="24">
+            <div class="header-icon-btn" @click="installPwa">
+              <svg v-if="canInstall" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+              </svg>
+              <svg v-else viewBox="0 0 24 24" width="24" height="24">
                 <path fill="currentColor" d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/>
               </svg>
             </div>
@@ -131,7 +234,7 @@ const toggleSidebar = () => {
           <el-tooltip
               class="box-item"
               effect="dark"
-              content="GitHub仓库"
+              :content="t('ui.github')"
               placement="bottom"
             >
             <a href="https://github.com/ireflux/mikasa-tool" target="_blank" class="header-icon-btn">
@@ -147,8 +250,8 @@ const toggleSidebar = () => {
 <style scoped>
 /* 搜索框 — 玻璃胶囊 */
 .gmail-search :deep(.el-select__wrapper) {
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(31, 31, 31, 0.05);
+  background: var(--glass-bg-soft);
+  border: 1px solid var(--color-border);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border-radius: 28px;
@@ -158,13 +261,13 @@ const toggleSidebar = () => {
 }
 
 .gmail-search :deep(.el-select__wrapper:hover) {
-  background: rgba(255, 255, 255, 0.75);
+  background: var(--glass-bg-strong);
   box-shadow: none;
 }
 
 .gmail-search :deep(.el-select__wrapper.is-focus) {
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 16px rgba(60, 64, 67, 0.12);
+  background: var(--glass-overlay-bg);
+  box-shadow: 0 4px 16px var(--shadow-dropdown);
 }
 
 /* 前缀搜索图标 */
@@ -189,7 +292,7 @@ const toggleSidebar = () => {
 }
 
 .header-toggle:hover {
-  background: #f0f4f9;
+  background: var(--color-hover);
   color: var(--color-text);
 }
 
@@ -207,7 +310,7 @@ const toggleSidebar = () => {
 }
 
 .header-icon-btn:hover {
-  background: #f0f4f9;
+  background: var(--color-hover);
   color: var(--color-text);
 }
 
@@ -232,6 +335,7 @@ const toggleSidebar = () => {
 .icon {
   transition: opacity var(--transition-fast);
   cursor: pointer;
+  color: var(--color-text-secondary);
 }
 
 .icon:hover {
@@ -245,10 +349,10 @@ const toggleSidebar = () => {
 
 /* Header — 磨砂玻璃吸顶 */
 header {
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--glass-bg-strong);
   backdrop-filter: var(--glass-blur-strong);
   -webkit-backdrop-filter: var(--glass-blur-strong);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
   z-index: 100;

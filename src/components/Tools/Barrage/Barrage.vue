@@ -101,7 +101,7 @@ setExtraStyle('visibility: hidden;')
       </div>
 
       <div>
-        <el-button @click="fullScreenPlay" type="primary" class="mr-3">{{ info.isPlay == false ? '播放' : '暂停'}}</el-button>
+        <el-button type="primary" class="mr-3" @click="fullScreenPlay">{{ info.isPlay == false ? '播放' : '暂停'}}</el-button>
         <el-text>双击可退出弹幕</el-text>
       </div>
     </div>

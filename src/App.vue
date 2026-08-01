@@ -1,17 +1,30 @@
 <script setup lang="ts">
+import { computed, onMounted } from 'vue'
 import Header from '@/components/Layout/Header/Header.vue'
 import Left from '@/components/Layout/Left/Left.vue'
 import Floor from '@/components/Layout/Floor/Floor.vue'
 import { useComponentStore } from '@/store/modules/component'
+import { useThemeStore } from '@/store/modules/theme'
+import { useI18n } from 'vue-i18n'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import en from 'element-plus/dist/locale/en.mjs'
 
 //store
 const componentStore = useComponentStore()
+const themeStore = useThemeStore()
+const { locale } = useI18n()
+
+//Element Plus 组件语言包
+const elLocale = computed(() => (locale.value === 'zh' ? zhCn : en))
+
+onMounted(() => {
+  themeStore.init()
+})
 
 </script>
 
 <template>
-  <el-config-provider :locale="zhCn">
+  <el-config-provider :locale="elLocale">
     <div>
       <!-- Aurora background — Google pastel 极光色块 -->
       <div class="aurora-bg" aria-hidden="true">
@@ -29,10 +42,10 @@ const componentStore = useComponentStore()
       </el-aside>
 
       <el-drawer 
-        show-close
+        v-model="componentStore.leftComDrawer"
+        show-close 
         size="240px" 
         :with-header="false" 
-        v-model="componentStore.leftComDrawer" 
         direction="ltr"
         >
         <Left :in-drawer="true"></Left>

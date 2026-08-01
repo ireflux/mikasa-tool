@@ -16,6 +16,9 @@ export const pageRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/About.vue'),
     name: 'about',
     meta: {
+      titleKey: 'about.title',
+      keywordsKey: 'seo.about.keywords',
+      descriptionKey: 'about.desc',
       title: "关于",
       keywords: '关于ranblogs,关于工具站',
       description: '',
@@ -26,6 +29,9 @@ export const pageRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/NotFound.vue'),
     name: '404',
     meta: {
+      titleKey: 'ui.notFound',
+      keywordsKey: 'seo.404.keywords',
+      descriptionKey: 'ui.notFound',
       title: "404"
     }
   },

@@ -60,11 +60,11 @@ const saveImg = () => {
         <el-upload
           ref="upload"
           :limit="1"
-          @exceed="uploadExceed"
           accept="image/*"
-          @change="uploadChange"
           :auto-upload="false"
           :show-file-list="false"
+          @exceed="uploadExceed"
+          @change="uploadChange"
         >
           <template #trigger>
             <el-button type="primary">选择图片</el-button>
@@ -75,10 +75,10 @@ const saveImg = () => {
       <SignImageCore 
         ref="refSignImageCore"
         :key="info.cKey"
-        :dialogVisible.sync="true" 
+        :dialog-visible="true"
         :title="info.title"
-        :imgUrl="info.previewsImgUrl"
-        @getNewImg="info.getNewImg"
+        :img-url="info.previewsImgUrl"
+        @get-new-img="info.getNewImg"
       ></SignImageCore>
     </div>
 

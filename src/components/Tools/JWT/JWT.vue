@@ -43,7 +43,7 @@ onMounted(() => {
     <div class="tool-card">
       <div class="mb-6">
         <el-input v-model="info.token" :rows="5" type="textarea" placeholder="请输入Token" @change="parser"></el-input>
-        <el-text type="danger" v-if="invalidToken">Invalid token</el-text>
+        <el-text v-if="invalidToken" type="danger">Invalid token</el-text>
         <div class="mt-3">
           <el-button type="primary" @click="parser">解析</el-button>
           <el-button type="primary" @click="clear">清除</el-button>
@@ -66,10 +66,10 @@ onMounted(() => {
       <div v-if="decodePayload">
         <div class="mb-3 mt-3">Payload(载荷)</div>
         <el-input
+          v-if="decodePayload"
           v-model="decodePayload"
           type="textarea"
           :autosize="true"
-          v-if="decodePayload"
           class="w-full"
         />
       </div>
