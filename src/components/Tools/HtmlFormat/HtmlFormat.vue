@@ -71,7 +71,7 @@ const copyRes = async () => {
     <!-- desc -->
     <ToolDetail>
       <el-text>
-        提供在线html、xml格式化
+        提供在线HTML、XML格式化
       </el-text> 
     </ToolDetail>
   </div>

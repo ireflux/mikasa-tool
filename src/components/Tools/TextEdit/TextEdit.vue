@@ -89,14 +89,14 @@ const copyRes = async (resStr: string) => {
         class="mt-3"
         type="textarea"
         autosize
-        placeholder="html预览处"
+        placeholder="HTML预览处"
       />
     </div>
 
     <!-- desc -->
     <ToolDetail>
       <el-text>
-        在线富文本编辑, html实时预览，在线编辑文本，文本编辑获取html
+        在线富文本编辑, HTML实时预览，在线编辑文本，文本编辑获取HTML
       </el-text> 
     </ToolDetail>
 

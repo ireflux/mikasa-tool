@@ -33,7 +33,7 @@ const formatCode = async () => {
   } catch (error) {
     ElMessage({
       showClose: true,
-      message: '请填入正确的js代码',
+      message: '请填入正确的JS代码',
       type: 'error',
     })
   }
@@ -51,7 +51,7 @@ const confuseCompress = async () => {
   } catch(error) {
     ElMessage({
       showClose: true,
-      message: '请填入正确的js代码: ' + (error as Error).message,
+      message: '请填入正确的JS代码: ' + (error as Error).message,
       type: 'error',
     })
   }

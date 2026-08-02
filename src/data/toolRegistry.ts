@@ -96,7 +96,7 @@ export const toolRegistry: ToolDefinition[] = [
     descKey: 'tool.json.desc',
     keywordsKey: 'seo.json.keywords',
     logo: '/images/logo/json.svg',
-    seo: { title: "Json在线转换", keywords: "json编辑器,json格式化,json压缩,json转义,json去转义", description: "提供实时编辑和预览JSON 数据，语法高亮、校验、格式化、转义，去转义、压缩等功能，可以提高阅读修改的效率和准确性" },
+    seo: { title: "JSON在线转换", keywords: "json编辑器,json格式化,json压缩,json转义,json去转义", description: "提供实时编辑和预览JSON 数据，语法高亮、校验、格式化、转义，去转义、压缩等功能，可以提高阅读修改的效率和准确性" },
     component: () => import('@/components/Tools/JsonTran/JsonTran.vue'),
   },
   {
@@ -146,7 +146,7 @@ export const toolRegistry: ToolDefinition[] = [
     descKey: 'tool.htmlentity.desc',
     keywordsKey: 'seo.htmlentity.keywords',
     logo: '/images/logo/htmlentity.svg',
-    seo: { title: "html实体转义", keywords: "html实体转义", description: "html实体转义，实体转义成html" },
+    seo: { title: "HTML实体转义", keywords: "html实体转义", description: "HTML实体转义，实体转义成HTML" },
     component: () => import('@/components/Tools/HtmlEntity/HtmlEntity.vue'),
   },
   {
@@ -166,7 +166,7 @@ export const toolRegistry: ToolDefinition[] = [
     descKey: 'tool.htmlformat.desc',
     keywordsKey: 'seo.htmlformat.keywords',
     logo: '/images/logo/htmlformat.svg',
-    seo: { title: "html代码格式化", keywords: "html格式化,xml格式化", description: "提供在线html、xml格式化" },
+    seo: { title: "HTML代码格式化", keywords: "html格式化,xml格式化", description: "提供在线HTML、XML格式化" },
     component: () => import('@/components/Tools/HtmlFormat/HtmlFormat.vue'),
   },
   {
@@ -296,7 +296,7 @@ export const toolRegistry: ToolDefinition[] = [
     descKey: 'tool.markdown.desc',
     keywordsKey: 'seo.markdown.keywords',
     logo: '/images/logo/markdown.svg',
-    seo: { title: "markdown编辑器", keywords: "在线创建或编辑markdown, 实时预览,导出markdown", description: "在线markdown编辑器" },
+    seo: { title: "Markdown 编辑器", keywords: "在线创建或编辑markdown, 实时预览,导出markdown", description: "在线 Markdown 编辑器" },
     component: withClientOnly(() => import('@/components/Tools/Markdown/Markdown.vue')),
   },
   {
@@ -336,7 +336,7 @@ export const toolRegistry: ToolDefinition[] = [
     descKey: 'tool.textedit.desc',
     keywordsKey: 'seo.textedit.keywords',
     logo: '/images/logo/textedit.svg',
-    seo: { title: "在线文本编辑/HTML获取", keywords: "文本编辑,富文本预览,在线编辑文本,文本编辑获取html", description: "在线富文本编辑, html实时预览，在线编辑文本，文本编辑获取html" },
+    seo: { title: "在线文本编辑/HTML获取", keywords: "文本编辑,富文本预览,在线编辑文本,文本编辑获取html", description: "在线富文本编辑, HTML实时预览，在线编辑文本，文本编辑获取HTML" },
     component: withClientOnly(() => import('@/components/Tools/TextEdit/TextEdit.vue')),
   },
   {
@@ -646,7 +646,7 @@ export const toolRegistry: ToolDefinition[] = [
     descKey: 'tool.m3u8player.desc',
     keywordsKey: 'seo.m3u8player.keywords',
     logo: '/images/logo/m3u8player.svg',
-    seo: { title: "m3u8在线播放", keywords: "m3u8,视频播放,流媒体", description: "播放m3u8格式的视频流" },
+    seo: { title: "M3U8 在线播放", keywords: "m3u8,视频播放,流媒体", description: "播放 M3U8 格式的视频流" },
     component: () => import('@/components/Tools/M3U8Player/M3U8Player.vue'),
   },
   {
@@ -690,14 +690,24 @@ export const toolRegistry: ToolDefinition[] = [
     component: () => import('@/components/Tools/DateCalculator/DateCalculator.vue'),
   },
   {
-    id: 'healthcalculator',
+    id: 'bmi',
     categoryId: 7,
-    titleKey: 'tool.healthcalculator.title',
-    descKey: 'tool.healthcalculator.desc',
-    keywordsKey: 'seo.healthcalculator.keywords',
-    logo: '/images/logo/healthcalculator.svg',
-    seo: { title: "BMI/房贷计算器", keywords: "BMI计算,房贷计算,月供计算,等额本息,等额本金,身体质量指数", description: "在线BMI计算器和房贷计算器，支持身体质量指数测算和等额本息、等额本金两种还款方式的月供、总利息计算" },
-    component: () => import('@/components/Tools/HealthCalculator/HealthCalculator.vue'),
+    titleKey: 'tool.bmi.title',
+    descKey: 'tool.bmi.desc',
+    keywordsKey: 'seo.bmi.keywords',
+    logo: '/images/logo/bmi.svg',
+    seo: { title: "BMI 计算器", keywords: "BMI计算,bmi计算器,身体质量指数,体重指数", description: "在线 BMI 计算器，输入身高体重即可测算身体质量指数并查看健康体重范围" },
+    component: () => import('@/components/Tools/Bmi/Bmi.vue'),
+  },
+  {
+    id: 'mortgage',
+    categoryId: 7,
+    titleKey: 'tool.mortgage.title',
+    descKey: 'tool.mortgage.desc',
+    keywordsKey: 'seo.mortgage.keywords',
+    logo: '/images/logo/mortgage.svg',
+    seo: { title: "房贷计算器", keywords: "房贷计算,月供计算,等额本息,等额本金,贷款计算", description: "在线房贷计算器，支持等额本息、等额本金两种还款方式的月供、总利息计算" },
+    component: () => import('@/components/Tools/Mortgage/Mortgage.vue'),
   },
 ]
 // 由注册表生成路由（保持注册顺序）

@@ -6,10 +6,10 @@
       <div class="tool-content">
         <div class="input-section">
           <el-form label-position="top">
-            <el-form-item label="m3u8地址">
+            <el-form-item label="M3U8地址">
               <el-input
                 v-model="m3u8Url"
-                placeholder="请输入m3u8格式的视频地址"
+                placeholder="请输入M3U8格式的视频地址"
               />
             </el-form-item>
             
@@ -35,7 +35,7 @@
             </video>
           </div>
           <div v-else class="no-video">
-            请输入m3u8地址并点击加载视频
+            请输入M3U8地址并点击加载视频
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
     <!-- desc -->
     <ToolDetail>
       <el-text>
-        在线m3u8播放器，支持播放m3u8格式的视频流，可输入自定义m3u8地址进行播放，适用于直播流和视频点播场景。
+        在线M3U8播放器，支持播放M3U8格式的视频流，可输入自定义M3U8地址进行播放，适用于直播流和视频点播场景。
       </el-text>
     </ToolDetail>
 

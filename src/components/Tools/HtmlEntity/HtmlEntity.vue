@@ -53,7 +53,7 @@ onMounted(() => {
       <!-- desc -->
       <ToolDetail>
         <el-text>
-          html实体转义，实体转义成html
+          HTML实体转义，实体转义成HTML
         </el-text> 
       </ToolDetail>
     </div>

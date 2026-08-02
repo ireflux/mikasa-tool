@@ -24,7 +24,7 @@ const info = reactive({
     <!-- desc -->
     <ToolDetail>
       <el-text>
-        在线编辑markdown
+        在线编辑Markdown
       </el-text> 
     </ToolDetail>
 

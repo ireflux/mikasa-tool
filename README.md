@@ -24,7 +24,7 @@ Mikasa Tool includes **66** utilities across **7** categories:
 - **Education & Science**: unit converter, Morse code, number system conversion, ASCII table
 - **Image**: QR code generator, image editor, text-to-image, image splitter, color picker, watermark
 - **Charts**: bar, line, pie, scatter, word cloud
-- **Random & Decision**: Chinese number converter, danmaku, color palette, color picker, pomodoro, reaction test, m3u8 player, rock-paper-scissors, emoji picker, calculator, date calculator, BMI/mortgage calculator
+- **Random & Decision**: Chinese number converter, danmaku, color palette, color picker, pomodoro, reaction test, M3U8 player, rock-paper-scissors, emoji picker, calculator, date calculator, BMI calculator, mortgage calculator
 - **Miscellaneous**: random number, decision helper, coin flip, dice, lottery, spinner
 
 ## Getting Started
