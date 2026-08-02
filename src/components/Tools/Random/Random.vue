@@ -4,7 +4,6 @@ import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 // import { copy } from '@/utils/string'
 const info = reactive({
-  title: "生成随机数",
   startNum: 1,
   endNum: 100,
   resNum: 0,
@@ -32,7 +31,7 @@ const random = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="flex flex-col items-center tool-card">
       <div>
@@ -50,7 +49,7 @@ const random = () => {
       </div>
     </div>
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         可定制范围内进行随机数字，可用于抽奖、点名等用途
       </el-text> 

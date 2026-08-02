@@ -5,7 +5,6 @@ import { useChart } from '@/composables/useChart'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const chartTitle = '散点图'
 const chartDom = ref<HTMLElement | null>(null)
 const dataFileRef = ref()
 
@@ -21,7 +20,7 @@ const {
   defaultColumns: [10.0, 8.07, 13.0, 9.05, 11.0, 14.0, 13.4, 10.0, 14.0, 12.5, 9.15, 11.5, 3.03, 12.2, 2.02, 1.05, 4.05, 6.03, 12.0, 7.08, 5.02, 6.03],
   defaultValues: [8.04, 6.95, 7.58, 8.81, 8.33, 7.66, 6.81, 6.33, 8.96, 6.82, 7.2, 7.2, 4.23, 7.83, 4.47, 3.33, 4.96, 7.24, 6.26, 8.84, 5.82, 5.68, 7.05],
   buildOption: (ctx) => ({
-    backgroundColor: '#fff',
+
     title: {
       text: ctx.title.value,
       subtext: ctx.subTitle.value,
@@ -49,6 +48,9 @@ const {
     const tmp = toEchartsData(data)
     ctx.colunmData.value = tmp[0]
     ctx.valueData.value = tmp[1]
+    ctx.seriesData.value = tranObjAndColumn([
+      tmp[0], tmp[1]
+    ], 'toCoord')
   },
   onBeforeInit: (ctx) => {
     ctx.seriesData.value = tranObjAndColumn([
@@ -58,7 +60,7 @@ const {
   onFileDataLoaded: (ctx) => {
     ctx.seriesData.value = tranObjAndColumn([
       ctx.colunmData.value, ctx.valueData.value
-    ])
+    ], 'toCoord')
   },
   reloadCallsDataUpdate: true,
 })
@@ -66,7 +68,7 @@ const {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="chartTitle"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card flex">
       <div class="w-4/6">
@@ -75,7 +77,7 @@ const {
           <el-text>缩放：</el-text>
         </div>
         <div class="flex justify-center items-center max-h-[500px] max-w-[1000px] overflow-auto">
-          <div ref="chartDom" class="bg-white"></div>
+          <div ref="chartDom" class="bg-[var(--color-surface)]"></div>
         </div>
       </div>
       <div class="w-2/6 ml-3 tool-card" style="padding: 0.75rem;">
@@ -187,11 +189,12 @@ const {
       </div>
     </div>
 
-    <el-drawer id="x-spreadsheet" v-model="drawer" direction="btt" class="sheet" style="">
+    <el-drawer v-model="drawer" direction="btt" class="sheet">
+      <div ref="sheetContainer" class="sheet-container"></div>
     </el-drawer>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         散点图更偏向于研究型图表，通过直观醒目的图形方式反映出变量随自变量而变化的大致趋势，可以帮助我们推断出不同维度数据之间的相关性，也经常用在地图的标注上。<br>
         在线图表制作工具，在线制作散点图<br>
@@ -203,8 +206,9 @@ const {
 </template>
 
 <style scoped>
-:deep(.el-drawer__body){
-  display: none !important;
+.sheet-container{
+  height: 100%;
+  overflow: auto;
 }
 :deep(.el-drawer__header){
   display: none !important;

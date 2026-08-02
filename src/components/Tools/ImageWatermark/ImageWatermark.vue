@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -89,7 +89,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线图片水印添加工具，上传图片后添加自定义文字水印，支持设置水印位置、字体大小、透明度和颜色，可下载带水印的图片。
       </el-text>
@@ -104,7 +104,6 @@ import { ElMessage } from 'element-plus';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "图片水印添加"
 
 const imageUrl = ref('');
 const watermarkedUrl = ref('');

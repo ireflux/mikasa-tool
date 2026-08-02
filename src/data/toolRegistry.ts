@@ -1,4 +1,5 @@
-import type { RouteRecordRaw } from 'vue-router'
+import { withClientOnly } from '@/components/common/withClientOnly'
+import type { RouteRecordRaw, RouteComponent } from 'vue-router'
 // ===== 统一工具注册表 =====
 // 每个工具的唯一数据源：目录、路由、SEO 全部由此生成
 // 新增工具：在此注册 + 在 src/locales/{zh-CN,en-US}.ts 补充 i18n key
@@ -17,8 +18,8 @@ export interface ToolDefinition {
   logo: string
   /** 中文 SEO 兜底（SSG 预渲染与 key 缺失时使用） */
   seo: { title: string; keywords: string; description: string }
-  /** 组件懒加载 */
-  component: () => Promise<unknown>
+  /** 组件懒加载（浏览器专属库需用 withClientOnly 包装以兼容 SSR 预渲染） */
+  component: RouteComponent | (() => Promise<unknown>)
 }
 export interface ToolCategoryDefinition {
   id: number
@@ -286,7 +287,7 @@ export const toolRegistry: ToolDefinition[] = [
     keywordsKey: 'seo.diff.keywords',
     logo: '/images/logo/diff.svg',
     seo: { title: "文本对比", keywords: "中文比对,代码比对,代码对比,文本比对,英文比对", description: "文本差异比对支持中文、英文、代码比对" },
-    component: () => import('@/components/Tools/Diff/Diff.vue'),
+    component: withClientOnly(() => import('@/components/Tools/Diff/Diff.vue')),
   },
   {
     id: 'markdown',
@@ -296,7 +297,7 @@ export const toolRegistry: ToolDefinition[] = [
     keywordsKey: 'seo.markdown.keywords',
     logo: '/images/logo/markdown.svg',
     seo: { title: "markdown编辑器", keywords: "在线创建或编辑markdown, 实时预览,导出markdown", description: "在线markdown编辑器" },
-    component: () => import('@/components/Tools/Markdown/Markdown.vue'),
+    component: withClientOnly(() => import('@/components/Tools/Markdown/Markdown.vue')),
   },
   {
     id: 'wordcount',
@@ -336,7 +337,7 @@ export const toolRegistry: ToolDefinition[] = [
     keywordsKey: 'seo.textedit.keywords',
     logo: '/images/logo/textedit.svg',
     seo: { title: "在线文本编辑/HTML获取", keywords: "文本编辑,富文本预览,在线编辑文本,文本编辑获取html", description: "在线富文本编辑, html实时预览，在线编辑文本，文本编辑获取html" },
-    component: () => import('@/components/Tools/TextEdit/TextEdit.vue'),
+    component: withClientOnly(() => import('@/components/Tools/TextEdit/TextEdit.vue')),
   },
   {
     id: 'textreplace',
@@ -426,7 +427,7 @@ export const toolRegistry: ToolDefinition[] = [
     keywordsKey: 'seo.signimage.keywords',
     logo: '/images/logo/signimage.svg',
     seo: { title: "在线编辑图片", keywords: "在线图片裁剪,图片标注,图片滤镜,图片画笔、图片旋转、图片文字,图片美,图片尺寸调整化", description: "在线图片裁剪，图片标注，图片滤镜，图片画笔、图片旋转、图片文字,图片尺寸调整等操作" },
-    component: () => import('@/components/Tools/SignImage/SignImage.vue'),
+    component: withClientOnly(() => import('@/components/Tools/SignImage/SignImage.vue')),
   },
   {
     id: 'textToImg',
@@ -436,7 +437,7 @@ export const toolRegistry: ToolDefinition[] = [
     keywordsKey: 'seo.texttoimg.keywords',
     logo: '/images/logo/texttoimg.svg',
     seo: { title: "文本转图片", keywords: "文本生成图片,文本生成长图,推广长图", description: "把文本转换成图片，生成长图，具有超多个性文字排版" },
-    component: () => import('@/components/Tools/TextToImg/TextToImg.vue'),
+    component: withClientOnly(() => import('@/components/Tools/TextToImg/TextToImg.vue')),
   },
   {
     id: 'imgCut',
@@ -476,7 +477,7 @@ export const toolRegistry: ToolDefinition[] = [
     keywordsKey: 'seo.bar.keywords',
     logo: '/images/logo/bar.svg',
     seo: { title: "柱状图", keywords: "柱状图", description: "在线制作柱状图，像做表格一样制作可视化图表，支持导出静态或动态图表" },
-    component: () => import('@/components/Tools/Chart/Bar/Bar.vue'),
+    component: withClientOnly(() => import('@/components/Tools/Chart/Bar/Bar.vue')),
   },
   {
     id: 'line',
@@ -486,7 +487,7 @@ export const toolRegistry: ToolDefinition[] = [
     keywordsKey: 'seo.line.keywords',
     logo: '/images/logo/line.svg',
     seo: { title: "折线图", keywords: "折线图", description: "在线制作折线图，像做表格一样制作可视化图表，支持导出静态或动态图表" },
-    component: () => import('@/components/Tools/Chart/Line/Line.vue'),
+    component: withClientOnly(() => import('@/components/Tools/Chart/Line/Line.vue')),
   },
   {
     id: 'pie',
@@ -496,7 +497,7 @@ export const toolRegistry: ToolDefinition[] = [
     keywordsKey: 'seo.pie.keywords',
     logo: '/images/logo/pie.svg',
     seo: { title: "饼图", keywords: "饼图", description: "在线制作饼图，像做表格一样制作可视化图表，支持导出静态或动态图表" },
-    component: () => import('@/components/Tools/Chart/Pie/Pie.vue'),
+    component: withClientOnly(() => import('@/components/Tools/Chart/Pie/Pie.vue')),
   },
   {
     id: 'scatter',
@@ -506,7 +507,7 @@ export const toolRegistry: ToolDefinition[] = [
     keywordsKey: 'seo.scatter.keywords',
     logo: '/images/logo/scatter.svg',
     seo: { title: "散点图", keywords: "散点图", description: "在线制作散点图，像做表格一样制作可视化图表，支持导出静态或动态图表" },
-    component: () => import('@/components/Tools/Chart/Scatter/Scatter.vue'),
+    component: withClientOnly(() => import('@/components/Tools/Chart/Scatter/Scatter.vue')),
   },
   {
     id: 'wordcloud',
@@ -516,7 +517,7 @@ export const toolRegistry: ToolDefinition[] = [
     keywordsKey: 'seo.wordcloud.keywords',
     logo: '/images/logo/wordcloud.svg',
     seo: { title: "词云生成", keywords: "词云,文本可视化,词频分析", description: "根据输入文本生成词云图，支持自定义词云形状和颜色" },
-    component: () => import('@/components/Tools/WordCloud/WordCloud.vue'),
+    component: withClientOnly(() => import('@/components/Tools/WordCloud/WordCloud.vue')),
   },
   {
     id: 'random',

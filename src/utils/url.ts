@@ -1,8 +1,14 @@
-export function isUrl(str: string): boolean {  
-  const urlPattern = new RegExp(  
-    '^(https?:\\/\\/)?'+ // protocol  
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,})','i'); // fragment locator  
-  return urlPattern.test(str);  
+export function isUrl(str: string): boolean {
+  if (typeof str !== 'string' || str.trim() === '' || /\s/.test(str)) return false
+  try {
+    const url = new URL(str.includes('://') ? str : 'http://' + str)
+    if (url.protocol !== 'http:' && url.protocol !== 'https:' && url.protocol !== 'ftp:') {
+      return false
+    }
+    return url.hostname.length > 0
+  } catch {
+    return false
+  }
 }
 
 const UrlUtils = {

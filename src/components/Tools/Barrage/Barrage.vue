@@ -6,7 +6,6 @@ import vueDanmaku from 'vue-danmaku'
 import 'vue-danmaku/style.css'
 
 const info = reactive({
-  title: "手持弹幕",
   content: '工具坊',
   barrage: [] as string[],
   speed: 200,
@@ -52,7 +51,7 @@ setExtraStyle('visibility: hidden;')
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <!-- 全屏 -->
     <vue-danmaku
@@ -107,7 +106,7 @@ setExtraStyle('visibility: hidden;')
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         手持弹幕是一种新型的互动沟通工具，可以方便地为各种户外活动、演出嘉年华等活动增加趣味性和互动性。手持弹幕具有轻便、易携带、易操作等优点，可以让每个参与者都变成活动的一部分。同时，手持弹幕还可以通过预先编写的文本、表情等形式，表达参与者的情感和想法，实现沟通互动。在社交媒体时代，手持弹幕的使用也带来了更广泛的社交效应，增加了活动的互动性和传播度。无论是举办方还是参与者，手持弹幕都是一个非常有价值的互动工具。
       </el-text> 

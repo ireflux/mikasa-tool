@@ -21,22 +21,3 @@ export interface ToolCate {
   icon: string,
   list: ToolsInfo[]
 }
-
-export interface CollectReqData {
-  toolId: number
-}
-
-//tools list response
-export interface ToolsResponseData {
-  data: ToolsInfo[]
-}
-
-//tools cate response
-export interface ToolCateResponseData{
-  data: ToolCate[]
-}
-
-//tools recommend response
-export interface ToolRecommendResponseData{
-  data: ToolsInfo[]
-}

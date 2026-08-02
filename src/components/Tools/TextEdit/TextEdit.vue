@@ -6,7 +6,6 @@ import '@wangeditor/editor/dist/css/style.css' // 引入富文本 css
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'  //富文本组件
 import { copy } from '@/utils/string'
 const info = reactive({
-  title: "在线文本编辑/HTML获取",
   mode: 'default',
 })
 // 编辑器实例，必须用 shallowRef
@@ -60,7 +59,7 @@ const copyRes = async (resStr: string) => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card h-[510px]">
       <div class="border z-10 mt-3 h-96">
@@ -95,7 +94,7 @@ const copyRes = async (resStr: string) => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线富文本编辑, html实时预览，在线编辑文本，文本编辑获取html
       </el-text> 

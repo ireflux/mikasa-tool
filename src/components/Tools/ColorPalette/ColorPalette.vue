@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -232,7 +232,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线色板工具，提供基础颜色、渐变色、Material Design 颜色、扁平化颜色、霓虹色、自然色、金属色、复古色、季节色、莫兰迪色、马卡龙色、工业风和中国传统色，点击颜色可复制颜色值，方便设计和开发使用。
       </el-text>
@@ -247,7 +247,6 @@ import { ElMessage } from 'element-plus';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "色板工具"
 
 const activeCategory = ref('basic');
 

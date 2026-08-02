@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { reactive, ref, shallowRef, onBeforeUnmount } from 'vue'
+import { reactive, ref, shallowRef, onBeforeUnmount, computed } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import html2canvas from "html2canvas";
+import DOMPurify from 'dompurify'
 import '@wangeditor/editor/dist/css/style.css' // 引入富文本 css
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'  //富文本组件
 
 const info = reactive({
-  title: "文本转图片",
   mode: 'default',
   convasWidth: 860,
   convasBackgroundColor: '#fff',
@@ -26,12 +26,14 @@ const info = reactive({
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
 
-// 内容 HTML
+// 内容 HTML（渲染前经 DOMPurify 净化，防止富文本携带的恶意脚本执行）
 const valueHtml = ref(`文字转图片演示😀
 拥有丰富的样式选择
 可自由调整宽度背景色
 支持一键导出为长图
 `)
+
+const sanitizedHtml = computed(() => DOMPurify.sanitize(valueHtml.value))
 
 // 绑定  需要把那个内容生成图片
 const  poster  = ref();
@@ -90,7 +92,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div>
@@ -132,12 +134,12 @@ onBeforeUnmount(() => {
           :mode="info.mode"
           @on-created="handleCreated"
         />
-        <div ref="poster" class="absolute top-0 -z-10" v-html="valueHtml"></div>
+        <div ref="poster" class="absolute top-0 -z-10" v-html="sanitizedHtml"></div>
       </div>
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         把文本转换成图片，生成长图，富文本自定义文字排版，可导出png，jpeg格式，可更换背景图，设置宽度，是好用的文本转图片工具
       </el-text> 

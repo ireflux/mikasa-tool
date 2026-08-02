@@ -5,7 +5,6 @@ import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { ElMessage } from 'element-plus'
 import { copy } from '@/utils/string'
 
-const title = "进制转换计算器"
 
 // 状态管理
 const inputValue = ref('')
@@ -60,7 +59,7 @@ const clearInput = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <!-- 输入部分 -->
@@ -118,7 +117,7 @@ const clearInput = () => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线进制转换计算器，支持二进制、八进制、十进制、十六进制等多种进制之间的相互转换。
       </el-text>

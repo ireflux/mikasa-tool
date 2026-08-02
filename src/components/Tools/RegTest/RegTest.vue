@@ -5,7 +5,6 @@ import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { Codemirror } from "vue-codemirror"
 
 const info = reactive({
-  title: "正则表达式测试",
   reg: '',
   content: `一些测试实例:
 邮箱1：demo@163.com
@@ -116,7 +115,7 @@ const execMatch = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div>
@@ -151,14 +150,14 @@ const execMatch = () => {
         </div>
       </div>
 
-      <div class="mt-3 min-h-md bg-gray-100 p-3 mb-3">
+      <div class="mt-3 min-h-md bg-[var(--glass-bg-strong)] p-3 mb-3">
         <el-text>共找到 {{ info.matchNum }} 处匹配结果</el-text>
         <el-input v-model="info.matchRes" type="textarea" :rows="4" readonly></el-input>
       </div>
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         正则表达式是对字符串（包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”））操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。正则表达式是一种文本模式，该模式描述在搜索文本时要匹配的一个或多个字符串
       </el-text> 

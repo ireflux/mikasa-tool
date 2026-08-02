@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="t('tool.datecalculator.title')"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <el-tabs v-model="activeTab">
@@ -128,7 +128,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 
@@ -198,7 +198,7 @@ interface CountdownEvent {
 
 const eventName = ref('')
 const eventDate = ref(new Date())
-const events = reactive<CountdownEvent[]>(loadEvents())
+const events = reactive<CountdownEvent[]>([])
 
 function loadEvents(): CountdownEvent[] {
   try {
@@ -208,6 +208,11 @@ function loadEvents(): CountdownEvent[] {
     return []
   }
 }
+
+onMounted(() => {
+  // localStorage 仅在客户端可用，SSR 预渲染阶段延迟加载
+  events.splice(0, events.length, ...loadEvents())
+})
 
 function saveEvents() {
   localStorage.setItem('mikasa_countdown_events', JSON.stringify(events))

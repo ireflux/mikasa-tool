@@ -5,7 +5,6 @@ import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { ElMessage } from 'element-plus'
 import { copy } from '@/utils/string'
 
-const title = "XML格式化"
 
 // 状态管理
 const inputText = ref('')
@@ -130,7 +129,7 @@ const clearInput = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <!-- 输入部分 -->
@@ -201,7 +200,7 @@ const clearInput = () => {
     </a>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线XML格式化工具，用于美化和压缩XML代码，支持自定义缩进大小，使XML代码更易于阅读和维护。
       </el-text>

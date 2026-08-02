@@ -14,7 +14,6 @@ import { ElMessage } from 'element-plus'
 import { minify } from "terser"
 
 const info = reactive({
-  title: "js代码格式化/压缩",
   code: '',
   isParseErr: false,
   parseErr: '',
@@ -70,7 +69,7 @@ const copyRes = async () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       
@@ -92,13 +91,13 @@ const copyRes = async () => {
         <el-button type="primary" @click="clear">清空</el-button>
       </div>
 
-      <div v-show="info.isParseErr" class="mt-3 min-h-md bg-red-100 p-3 mb-3">
+      <div v-show="info.isParseErr" class="mt-3 min-h-md bg-[var(--el-color-danger-light-9)] p-3 mb-3">
         <el-text type="danger">{{ info.parseErr }}</el-text>
       </div>
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         JS格式化/压缩工具,提供在线JS格式化、JS压缩、JS混淆
       </el-text> 

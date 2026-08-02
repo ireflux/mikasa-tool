@@ -1,16 +1,19 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 const props = defineProps({
   title: {
     type: String,
-    default: '描述'
+    default: ''
   }
 })
+
+const { t } = useI18n()
 </script>
 
 <template>
   <!-- desc -->
   <div class="mt-3 rounded-2xl p-4 tech-detail-section">
-    <el-divider content-position="left" class="tech-divider">{{ props.title }}</el-divider>
+    <el-divider content-position="left" class="tech-divider">{{ props.title || t('common.desc') }}</el-divider>
     <div class="m-4">
       <slot></slot>
     </div> 

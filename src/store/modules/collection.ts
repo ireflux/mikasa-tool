@@ -39,10 +39,12 @@ export const useCollectionStore = defineStore('collection', {
     },
     // 添加收藏（存入 i18n key 形式的目录项，保证收藏跟随语言切换）
     addCollect(tool: ToolsInfo) {
-      const isCollected = this.collectedTools.some(t => t.url === tool.url);
+      const url = tool.url.replace(/\/$/, '');
+      const isCollected = this.collectedTools.some(t => t.url.replace(/\/$/, '') === url);
       if (!isCollected) {
         const catalog = toolsList();
-        this.collectedTools.push(catalog.find(t => t.url === tool.url) ?? { ...tool });
+        const current = catalog.find(t => t.url.replace(/\/$/, '') === url);
+        this.collectedTools.push(current ?? { ...tool });
         this.saveCollectedTools();
         return true;
       }
@@ -50,7 +52,8 @@ export const useCollectionStore = defineStore('collection', {
     },
     // 移除收藏
     removeCollect(url: string) {
-      const index = this.collectedTools.findIndex(tool => tool.url === url);
+      const normalizedUrl = url.replace(/\/$/, '');
+      const index = this.collectedTools.findIndex(tool => tool.url.replace(/\/$/, '') === normalizedUrl);
       if (index > -1) {
         this.collectedTools.splice(index, 1);
         this.saveCollectedTools();

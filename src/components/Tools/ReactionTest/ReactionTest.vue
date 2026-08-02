@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -71,7 +71,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线反应速度测试工具，通过点击变色的方块来测试你的反应速度，记录测试历史和统计数据，帮助你了解自己的反应能力。
       </el-text>
@@ -85,7 +85,6 @@ import { ref, computed } from 'vue';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "反应速度测试"
 
 // 移除未使用的 testArea 引用
 const testStatus = ref<'ready' | 'waiting' | 'active' | 'completed'>('ready');

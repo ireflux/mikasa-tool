@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref,computed, watch } from 'vue'
+import { onMounted, ref,computed, watch } from 'vue'
 import { UploadProps,UploadRawFile,genFileId } from 'element-plus'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const info = reactive({
-  title: "图片切割",
-})
 
 const fileList = ref()
 const lineNum = ref(3)
@@ -94,7 +91,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <el-upload
@@ -116,7 +113,7 @@ onMounted(() => {
       </div>
 
 
-      <div v-if="image.src" class="mt-3 min-h-md bg-gray-100 p-3 mb-3 flex flex-col">
+      <div v-if="image.src" class="mt-3 min-h-md bg-[var(--glass-bg-strong)] p-3 mb-3 flex flex-col">
         <!-- 预览 -->
         <div class="mb-3">
           <el-text>预览: </el-text>
@@ -139,7 +136,7 @@ onMounted(() => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         将图片分割成四宫格、九宫格、十六宫格，支持自定义行与列；<br>
         比如：九宫格切图广泛应用于微信朋友圈，微博等社交媒体。

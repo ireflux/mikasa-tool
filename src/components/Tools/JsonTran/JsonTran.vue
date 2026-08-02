@@ -11,7 +11,6 @@ import '@codemirror/state';
 import '@codemirror/commands';
 
 const info = reactive({
-  title: "Json在线转换",
   code: '',
   extensions: [json()],  //[json(), lineNumbers()],
   isParseErr: false,
@@ -62,7 +61,7 @@ const copyRes = async () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       
@@ -101,7 +100,7 @@ const copyRes = async () => {
         <el-button type="primary" @click="clear">清空</el-button>
       </div>
 
-      <div v-show="info.isParseErr" class="mt-3 min-h-md bg-red-100 p-3 mb-3">
+      <div v-show="info.isParseErr" class="mt-3 min-h-md bg-[var(--el-color-danger-light-9)] p-3 mb-3">
         <el-text type="danger">{{ info.parseErr }}</el-text>
       </div>
     </div>
@@ -135,7 +134,7 @@ const copyRes = async () => {
     </a>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。它基于JavaScript的一个子集，但与语言无关，因此在多种编程环境中广泛使用。JSON格式易于人阅读和编写，同时也易于机器解析和生成。它通常用于网络应用程序中服务器与客户端之间的数据传输。<br>
         JSON 工具提供实时编辑和预览JSON 数据，语法高亮、校验、格式化、转义，去转义、压缩等功能，可以提高阅读修改的效率和准确性

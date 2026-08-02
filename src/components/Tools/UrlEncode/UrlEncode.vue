@@ -5,7 +5,6 @@ import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { copy } from '@/utils/string'
 
 const info = reactive({
-  title: "URL编码/解码",
   content: '',
   tranRes: '',
 })
@@ -37,7 +36,7 @@ const copyRes = async () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div>
@@ -51,13 +50,13 @@ const copyRes = async () => {
         <el-button type="danger" @click="clear">清空内容</el-button>
       </div>
 
-      <div class="mt-3 min-h-md bg-gray-100 p-3 mb-3">
+      <div class="mt-3 min-h-md bg-[var(--glass-bg-strong)] p-3 mb-3">
         <el-input v-model="info.tranRes" type="textarea" :rows="8"></el-input>
       </div>
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线url编码，在线url解码工具
       </el-text> 

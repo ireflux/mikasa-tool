@@ -5,7 +5,6 @@ import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { ElMessage } from 'element-plus'
 import { copy } from '@/utils/string'
 
-const title = "文本替换"
 
 // 状态管理
 const inputText = ref('')
@@ -57,7 +56,7 @@ const clearInput = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <!-- 输入部分 -->
@@ -116,7 +115,7 @@ const clearInput = () => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线文本替换工具，支持普通文本和正则表达式替换，可用于批量修改文本内容，支持区分大小写选项。
       </el-text>

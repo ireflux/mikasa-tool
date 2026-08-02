@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { ref,reactive } from 'vue'
+import { ref } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import DiceCore from "@/components/Tools/Dice/DiceCore.vue"
 // import { copy } from '@/utils/string'
-const info = reactive({
-  title: "投骰子",
-})
 //骰子数量
 const diceNum = ref(1)
 const genStatus = ref(false)
@@ -39,7 +36,7 @@ const resetDice = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <view class="grow-[1.5]"></view>
@@ -65,7 +62,7 @@ const resetDice = () => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线投骰子，骰子工具，自定义骰子数量
       </el-text> 

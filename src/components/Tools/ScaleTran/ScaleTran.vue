@@ -9,7 +9,6 @@ import { InfoFilled } from '@element-plus/icons-vue'
 import { scale58ToBase, scale62ToBase, scale64ToBase, baseToScale58, baseToScale62, baseToScale64 } from '@/utils/math'
 
 const info = reactive({
-  title: "常用进制转换",
   content: '',
   chooseTranOptions: '10',
   tranOptions: [
@@ -195,7 +194,7 @@ const copyRes = async (index: any) => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1 ">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
     <div class="tool-card">
       <div class="flex">
         <div class="mr-2 w-full">
@@ -216,7 +215,7 @@ const copyRes = async (index: any) => {
         <el-button type="primary" @click="tran()">转换</el-button>
       </div>
 
-      <div class="mt-3 min-h-md bg-gray-100 p-3 mb-3 flex flex-col">
+      <div class="mt-3 min-h-md bg-[var(--glass-bg-strong)] p-3 mb-3 flex flex-col">
         <el-table :data="info.tranOptions" border style="width: 100%">
           <el-table-column prop="label" label="进制" width="120">
             <template #default="scope">
@@ -250,7 +249,7 @@ const copyRes = async (index: any) => {
     </div>
     
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         进位制其实是一种记数的方式，所以也称为进位记数法/位值计数法，可以用有限的数字符号代表所有的数值。 可使用数字符号的数目称为基数（英文：radix）或底数，基数为n，即可称n进位制，简称n进制。 例如平常生活中我们经常用到的十进制，就是使用10个阿拉伯数字0-9进行记数，所以它的基数就是10，称为十进制。
       </el-text> 

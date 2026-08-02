@@ -6,7 +6,6 @@ import QRCodeVue3 from 'qrcode-vue3'
 import { Delete, Plus } from '@element-plus/icons-vue'
 import { ElMessage, type UploadFile } from 'element-plus'
 const info = reactive({
-  title: "二维码生成",
   content: '可在此输入文字或网址,右键图片另存为可保存图片',
   width: 200,
   height: 200,
@@ -57,7 +56,7 @@ const gen = () => {
 
 <template>
   <div class="flex flex-col mt-3 ml-4 flex-1 mr-3">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="flex justify-between w-full tool-card">
       <div class="w-4/6 ">
@@ -106,7 +105,7 @@ const gen = () => {
             <el-text>前景色</el-text>
             <el-color-picker v-model="info.preColor" />
           </div> -->
-          <div class="w-16 flex flex-col items-center bg-gray-100 p-1 rounded-md">
+          <div class="w-16 flex flex-col items-center bg-[var(--glass-bg-strong)] p-1 rounded-md">
             <el-text>背景色</el-text>
             <el-color-picker v-model="info.bgColor" />
           </div>
@@ -176,7 +175,7 @@ const gen = () => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         根据内容生成二维码，自定义尺寸，纠错级别，颜色等带logo二维码
       </el-text> 

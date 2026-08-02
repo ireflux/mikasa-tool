@@ -5,7 +5,6 @@ import { useChart } from '@/composables/useChart'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const chartTitle = '柱状图'
 const chartDom = ref<HTMLElement | null>(null)
 const dataFileRef = ref()
 
@@ -21,7 +20,7 @@ const {
   defaultColumns: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   defaultValues: ['23', '24', '18', '25', '27', '28', '25'],
   buildOption: (ctx) => ({
-    backgroundColor: '#fff',
+
     title: {
       text: ctx.title.value,
       subtext: ctx.subTitle.value,
@@ -63,7 +62,7 @@ const {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="chartTitle"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card flex">
       <div class="w-4/6">
@@ -72,7 +71,7 @@ const {
           <el-text>缩放：</el-text>
         </div>
         <div class="flex justify-center items-center max-h-[500px] max-w-[1000px] overflow-auto">
-          <div ref="chartDom" class="bg-white"></div>
+          <div ref="chartDom" class="bg-[var(--color-surface)]"></div>
         </div>
       </div>
       <div class="w-2/6 ml-3 tool-card" style="padding: 0.75rem;">
@@ -184,11 +183,12 @@ const {
       </div>
     </div>
 
-    <el-drawer id="x-spreadsheet" v-model="drawer" direction="btt" class="sheet" style="">
+    <el-drawer v-model="drawer" direction="btt" class="sheet">
+      <div ref="sheetContainer" class="sheet-container"></div>
     </el-drawer>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线图表制作工具，在线制作柱状图<br>
         在线编辑表格生成柱状图，支持png和jpeg格式导出<br>
@@ -201,8 +201,9 @@ const {
 </template>
 
 <style scoped>
-:deep(.el-drawer__body){
-  display: none !important;
+.sheet-container{
+  height: 100%;
+  overflow: auto;
 }
 :deep(.el-drawer__header){
   display: none !important;

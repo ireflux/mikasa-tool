@@ -1,10 +1,14 @@
 import axios from "axios";
 import { ElMessage } from "element-plus";
 //创建axios实例
+//VITE_SERVE 为空时退化为纯前端部署（baseURL 仅保留 /v1 前缀，由前端代理/网关处理）
+const baseURL = import.meta.env.VITE_SERVE
+  ? import.meta.env.VITE_SERVE + import.meta.env.VITE_APP_BASE_API
+  : import.meta.env.VITE_APP_BASE_API
 const request = axios.create({
-    baseURL: import.meta.env.VITE_IS_MOCK === 'true' ? import.meta.env.VITE_APP_BASE_API :  import.meta.env.VITE_SERVE + import.meta.env.VITE_APP_BASE_API,
+    baseURL,
     timeout: 5000
-});  
+});
 
 //请求拦截器
 request.interceptors.request.use(config => {
@@ -12,16 +16,21 @@ request.interceptors.request.use(config => {
 });
 //响应拦截器
 request.interceptors.response.use((response) => {
-    if (response.data.code === 401) {
+    const data = response.data
+    if (data && data.code === 401) {
         //登录过期
-        localStorage.setItem('TOKEN', '')
-        location.reload()
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('TOKEN', '')
+        }
+        if (typeof location !== 'undefined') {
+            location.reload()
+        }
     }
-    return response.data;
+    return data;
 }, (error) => {
     if (error.code === 'ERR_CANCELED') {
-        //拒绝响应
-        return Promise.race([]);
+        //请求被取消，正常拒绝
+        return Promise.reject(error);
     }
     //处理网络错误
     let msg = '';

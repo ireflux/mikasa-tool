@@ -35,8 +35,15 @@ export async function render(routePath: string) {
     const ssrErrors: string[] = []
     const origWarn = console.warn
     const origError = console.error
-    console.warn = (...args: unknown[]) => { ssrWarnings.push(args.map(String).join(' ')) }
-    console.error = (...args: unknown[]) => { ssrErrors.push(args.map(String).join(' ')) }
+    const safeString = (v: unknown) => {
+      try {
+        return String(v)
+      } catch {
+        return '[unserializable]'
+      }
+    }
+    console.warn = (...args: unknown[]) => { ssrWarnings.push(args.map(safeString).join(' ')) }
+    console.error = (...args: unknown[]) => { ssrErrors.push(args.map(safeString).join(' ')) }
 
     try {
       const { app, router } = createAppInstance(true)
@@ -45,12 +52,14 @@ export async function render(routePath: string) {
 
       try {
         html = await renderToString(app)
-      } catch {
+      } catch (e) {
         // Component rendering failed (browser-only APIs)
+        origError(`[SSR] render error for ${routePath}:`, e)
         html = ''
       }
-    } catch {
+    } catch (e) {
       // App creation or route loading failed (browser-only module side effects)
+      origError(`[SSR] app error for ${routePath}:`, e)
       html = ''
     } finally {
       console.warn = origWarn

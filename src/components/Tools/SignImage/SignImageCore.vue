@@ -2,7 +2,7 @@
 import { ref, onMounted, nextTick } from 'vue'
 import 'tui-image-editor/dist/tui-image-editor.css'
 // import 'tui-color-picker/dist/tui-color-picker.css'
-import { base64ToBlod } from '@/utils/file'
+import { base64ToBlob } from '@/utils/file'
 import ImageEditor from 'tui-image-editor'
 
 // 中文菜单
@@ -214,8 +214,8 @@ const init = ()=> {
 const save = () => {
   // base64 文件
   const base64String = instance.value.toDataURL() 
-  //转换blod
-  const url = base64ToBlod(base64String)
+  //转换blob
+  const url = base64ToBlob(base64String)
   //传递给父组件
   emit('getNewImg', url);
 }

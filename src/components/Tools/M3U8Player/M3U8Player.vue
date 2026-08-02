@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -42,7 +42,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线m3u8播放器，支持播放m3u8格式的视频流，可输入自定义m3u8地址进行播放，适用于直播流和视频点播场景。
       </el-text>
@@ -56,7 +56,6 @@ import { ref, onMounted } from 'vue';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "m3u8在线播放"
 
 const m3u8Url = ref('');
 const videoPlayer = ref<HTMLVideoElement | null>(null);

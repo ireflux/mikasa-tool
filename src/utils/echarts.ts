@@ -1,16 +1,19 @@
 /**
  * 转换成Spreadsheet数据格式
  */
-export function toSpreadsheetData(data: { value: (string | number)[] }[], type = 'bar'): Record<number, { cells: Record<number, { text: string }> }> {
+export function toSpreadsheetData(data: (string | number)[][], type = 'bar'): Record<number, { cells: Record<number, { text: string }> }> {
   const res: Record<number, { cells: Record<number, { text: string }> }> = {}
-  const columnLen = data[0].value.length
+  if (!Array.isArray(data) || data.length < 2) {
+    return res
+  }
+  const columnLen = Math.min(data[0]?.length ?? 0, data[1]?.length ?? 0)
   switch(type) {
     case 'bar':
       for (let i = 0; i < columnLen; i++) {
         res[i] = {
           cells: {
-            0: {text: String(data[0].value[i] ?? '')},
-            1: {text: String(data[1].value[i] ?? '')}
+            0: {text: String(data[0][i] ?? '')},
+            1: {text: String(data[1][i] ?? '')}
           }
         }
       }
@@ -57,6 +60,14 @@ export function toEchartsPieData(data: any): { name: string; value: string }[] {
   return tmpArr;
 }
 
+//判断数据容器是否为空（兼容数组与 x-data-spreadsheet 的 rows 对象）
+function isEmptyData(d: any): boolean {
+  if (d == null) return true
+  if (Array.isArray(d)) return d.length === 0
+  if (typeof d === 'object') return (d.len ?? 0) === 0
+  return true
+}
+
 /**
  * 数据格式转换 - 根据type转换格式
  * 对象格式{name: '', value: ''};  列格式： nameArr = [], valueArr = []
@@ -66,7 +77,7 @@ export function toEchartsPieData(data: any): { name: string; value: string }[] {
 export function tranObjAndColumn(data: any, type = 'toObj'): any[] {
   let returnData = [] as any[];
   if (type === 'toObj') {
-    if (data.len === 0 || data[0].len === 0) {
+    if (isEmptyData(data[0]) || isEmptyData(data[1])) {
       return returnData;
     }
     //转换成饼图使用的obj
@@ -95,7 +106,7 @@ export function tranObjAndColumn(data: any, type = 'toObj'): any[] {
     returnData = [nameArr, valueArr]
   } else if (type === "toCoord") {
     //转换成坐标(散点图用到)
-    if (data.len === 0 || data[0].len === 0) {
+    if (isEmptyData(data[0]) || isEmptyData(data[1])) {
       return returnData;
     }
     //转换成饼图使用的obj

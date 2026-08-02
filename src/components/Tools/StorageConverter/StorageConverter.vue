@@ -5,7 +5,6 @@ import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { ElMessage } from 'element-plus'
 import { copy } from '@/utils/string'
 
-const title = "数据存储单位换算"
 
 // 状态管理
 const inputValue = ref('')
@@ -121,7 +120,7 @@ const clearInput = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <!-- 输入部分 -->
@@ -182,7 +181,7 @@ const clearInput = () => {
       <div v-if="allConvertedValues.length > 0">
         <el-text class="block mb-2">所有单位转换结果：</el-text>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-          <div v-for="item in allConvertedValues" :key="item.unit" class="bg-gray-50 p-2 rounded">
+          <div v-for="item in allConvertedValues" :key="item.unit" class="bg-[var(--glass-bg-strong)] p-2 rounded">
             <div class="text-sm text-gray-500">{{ item.unit }}</div>
             <div class="font-medium">{{ item.value }}</div>
           </div>
@@ -191,7 +190,7 @@ const clearInput = () => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线数据存储单位换算工具，支持比特(bit)、字节(B)、KB、MB、GB、TB、PB、EB等存储单位之间的相互转换。
       </el-text>

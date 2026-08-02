@@ -1,10 +1,8 @@
-import { ref, onMounted, onUnmounted, type Ref } from 'vue'
-import Spreadsheet from 'x-data-spreadsheet'
-import 'x-data-spreadsheet/dist/locale/zh-cn'
+import { ref, watch, onMounted, onUnmounted, type Ref } from 'vue'
 import { type UploadProps, type UploadRawFile, genFileId } from 'element-plus'
 import * as echarts from 'echarts'
-import * as XLSX from 'xlsx'
 import { toSpreadsheetData } from '@/utils/echarts'
+import { useThemeStore } from '@/store/modules/theme'
 
 type ChartHandleType = 'scale' | 'size' | 'title' | 'color' | 'watermark' | 'data'
 
@@ -57,6 +55,8 @@ export function useChart(
   const drawer = ref(false)
   const rowsData = ref<Record<number, any>>({})
   const fileList = ref()
+  const sheetContainer = ref<HTMLElement | null>(null)
+  let spreadsheetInstance: any = null
 
   const ctx: ChartContext = {
     colunmData,
@@ -66,6 +66,32 @@ export function useChart(
     subTitle,
     titlePos,
     attrColor,
+  }
+
+  //读取主题 CSS 变量（ECharts 画布无法直接解析 var()，需手动取值）
+  const chartThemeColor = (cssVar: string, fallback: string): string => {
+    if (typeof document === 'undefined') return fallback
+    return (
+      getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim() || fallback
+    )
+  }
+
+  const chartBg = (): string => chartThemeColor('--color-surface', '#ffffff')
+  const chartTextColor = (): string => chartThemeColor('--color-text', '#1f1f1f')
+
+  //图表跟随主题：背景 / 文本 / 悬浮提示均使用主题色
+  const applyChartTheme = (): void => {
+    if (!myChart.value) return
+    const bg = watermarkSwitch.value ? { image: createWatermark() } : chartBg()
+    myChart.value.setOption({
+      backgroundColor: bg,
+      textStyle: { color: chartTextColor() },
+      tooltip: {
+        backgroundColor: chartBg(),
+        borderColor: 'transparent',
+        textStyle: { color: chartTextColor() },
+      },
+    })
   }
 
   const createWatermark = (): HTMLCanvasElement => {
@@ -92,6 +118,7 @@ export function useChart(
       height: heightCanvas.value
     })
     myChart.value.setOption(options.buildOption(ctx))
+    applyChartTheme()
     if (options.reloadCallsDataUpdate) {
       canvasHandle('data')
     }
@@ -152,7 +179,7 @@ export function useChart(
           })
         } else {
           myChart.value?.setOption({
-            backgroundColor: '#fff'
+            backgroundColor: chartBg()
           })
         }
         break
@@ -180,54 +207,69 @@ export function useChart(
     }
   }
 
-  const editData = (): void => {
+  const editData = async (): Promise<void> => {
     if (drawer.value) {
       drawer.value = false
-    } else {
-      drawer.value = true
-      Spreadsheet.locale('zh-cn', (window.x_spreadsheet as any).$messages['zh-cn'])
-      new Spreadsheet('#x-spreadsheet', {
-        showToolbar: false,
-        showBottomBar: false,
-        view: {
-          height: () => document.documentElement.clientHeight / 2,
-          width: () => document.documentElement.clientWidth,
-        }
-      })
-        .loadData({
-          styles: [
-            {
-              bgcolor: '#f4f5f8',
-              textwrap: true,
-              color: '#900b09',
-              border: {
-                top: ['thin', '#0366d6'],
-                bottom: ['thin', '#0366d6'],
-                right: ['thin', '#0366d6'],
-                left: ['thin', '#0366d6'],
-              },
-            },
-          ],
-          rows: rowsData.value
-        })
-        .change((data: any) => {
-          options.onSpreadsheetChange(data, ctx)
-          canvasHandle('data')
-        })
+      return
     }
+    drawer.value = true
+    //销毁旧实例并清空容器，避免重复打开时 DOM 与 change 监听器累积
+    spreadsheetInstance?.destroy?.()
+    spreadsheetInstance = null
+    if (sheetContainer.value) {
+      sheetContainer.value.innerHTML = ''
+    }
+    const [{ default: Spreadsheet }] = await Promise.all([
+      import('x-data-spreadsheet'),
+      import('x-data-spreadsheet/dist/locale/zh-cn'),
+    ])
+    //locale 文件以 UMD 形式挂载全局 x_spreadsheet
+    const localeMessages = (window as any).x_spreadsheet?.$messages?.['zh-cn']
+    if (localeMessages) {
+      Spreadsheet.locale('zh-cn', localeMessages)
+    }
+    spreadsheetInstance = new Spreadsheet(sheetContainer.value as HTMLElement, {
+      showToolbar: false,
+      showBottomBar: false,
+      view: {
+        height: () => document.documentElement.clientHeight / 2,
+        width: () => document.documentElement.clientWidth,
+      }
+    })
+      .loadData({
+        styles: [
+          {
+            bgcolor: '#f4f5f8',
+            textwrap: true,
+            color: '#900b09',
+            border: {
+              top: ['thin', '#0366d6'],
+              bottom: ['thin', '#0366d6'],
+              right: ['thin', '#0366d6'],
+              left: ['thin', '#0366d6'],
+            },
+          },
+        ],
+        rows: rowsData.value
+      })
+      .change((data: any) => {
+        options.onSpreadsheetChange(data, ctx)
+        canvasHandle('data')
+      })
   }
 
   const updateDataFile = async (params: { file: File }): Promise<void> => {
     const _file = params.file
     const fileReader = new FileReader()
-    fileReader.onload = (ev) => {
+    fileReader.onload = async (ev) => {
       try {
         if (!ev.target) {
           return
         }
+        const { read, utils } = await import('xlsx')
         const data = ev.target.result
-        const workbook = XLSX.read(data, {
-          type: 'binary'
+        const workbook = read(data, {
+          type: 'array'
         })
         let useCount = 0
         const tmpColumnData: any[] = []
@@ -236,7 +278,7 @@ export function useChart(
           if (useCount > 0) {
             continue
           }
-          const sheetArray = XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { header: ['0', '1'] })
+          const sheetArray = utils.sheet_to_json(workbook.Sheets[sheet], { header: ['0', '1'] })
           if (sheetArray.length === 0) {
             continue
           }
@@ -255,7 +297,7 @@ export function useChart(
         }
         canvasHandle('data')
         rowsData.value = toSpreadsheetData([
-          colunmData, valueData
+          colunmData.value, valueData.value
         ])
       } catch (e) {
         console.error('Failed to process file:', e)
@@ -278,13 +320,22 @@ export function useChart(
     }
     canvasHandle('size')
     rowsData.value = toSpreadsheetData([
-      colunmData, valueData
+      colunmData.value, valueData.value
     ])
   }
 
   onMounted(() => {
     init()
   })
+
+  //主题切换时同步图表配色
+  const themeStore = useThemeStore()
+  watch(
+    () => themeStore.currentDark,
+    () => {
+      applyChartTheme()
+    }
+  )
 
   onUnmounted(() => {
     myChart.value?.dispose()
@@ -307,6 +358,7 @@ export function useChart(
     drawer,
     rowsData,
     fileList,
+    sheetContainer,
     colunmData,
     valueData,
     seriesData,

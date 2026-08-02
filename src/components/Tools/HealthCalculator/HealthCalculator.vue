@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="t('tool.healthcalculator.title')"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <el-tabs v-model="activeTab">

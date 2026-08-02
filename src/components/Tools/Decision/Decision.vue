@@ -4,7 +4,6 @@ import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 // import { copy } from '@/utils/string'
 const info = reactive({
-  title: "帮我决定",
   scope: '', //多个用`,`隔开
   randomVal: '',
   checked: '0',
@@ -62,7 +61,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div>
@@ -89,7 +88,7 @@ onMounted(() => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         选择困难症患者的福音！由我来帮你决定，可自定义决定内容，随机选择决定
       </el-text> 

@@ -5,7 +5,6 @@ import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { Md5 } from 'ts-md5'
 import { copy } from '@/utils/string'
 const info = reactive({
-  title: "MD5在线加密",
   encryptStr: '',
   encryptUpper32: '',
   encryptLower32: '',
@@ -34,7 +33,7 @@ const copyRes = async (resStr: string) => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div>
@@ -86,7 +85,7 @@ const copyRes = async (resStr: string) => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线md5加密,md5加密算法,md5加密工具,免费MD5在线加密,可生成32位md5,16位md5
       </el-text> 

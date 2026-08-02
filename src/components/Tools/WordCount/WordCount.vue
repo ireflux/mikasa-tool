@@ -3,7 +3,6 @@ import { reactive } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 const info = reactive({
-  title: "在线字数统计",
   content: '',
   tranRes: '',
   chinaCharNum: 0,
@@ -36,13 +35,13 @@ const changeContent = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div>
         <el-input v-model="info.content" type="textarea" :rows="16" @input="changeContent"></el-input>
       </div>
-      <div class="mt-3 min-h-md bg-gray-100 p-3 mb-3 flex">
+      <div class="mt-3 min-h-md bg-[var(--glass-bg-strong)] p-3 mb-3 flex">
         <div><el-text>总字数：{{ info.sum }}</el-text></div>
         <div class="ml-3"><el-text>汉字：{{ info.chinaCharNum }}</el-text></div>
         <div class="ml-3"><el-text>字母：{{ info.letterNum }}</el-text></div>
@@ -54,7 +53,7 @@ const changeContent = () => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线统计字数、汉字、标点、数字、字母、字符
       </el-text>

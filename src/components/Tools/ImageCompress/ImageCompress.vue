@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="t('tool.imagecompress.title')"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div v-if="!originalUrl" class="compress-dropzone" @click="pickFile" @dragover.prevent @drop.prevent="onDrop">

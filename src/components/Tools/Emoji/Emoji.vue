@@ -4,7 +4,6 @@ import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { copy } from '@/utils/string'
 
-const title = "Emoji表情大全"
 
 // 状态管理
 const searchKeyword = ref('')
@@ -684,7 +683,7 @@ const copyEmoji = (emoji: string) => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <!-- 搜索和分类 -->
@@ -713,7 +712,7 @@ const copyEmoji = (emoji: string) => {
         <div
           v-for="emoji in filteredEmojis"
           :key="emoji.emoji + emoji.name"
-          class="flex flex-col items-center p-2 border rounded hover:bg-gray-50 cursor-pointer"
+          class="flex flex-col items-center p-2 border rounded hover:bg-[var(--color-hover)] cursor-pointer"
           @click="copyEmoji(emoji.emoji)"
         >
           <div class="text-3xl mb-1">{{ emoji.emoji }}</div>
@@ -723,7 +722,7 @@ const copyEmoji = (emoji: string) => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线Emoji表情大全，提供各种分类的Emoji表情，点击即可复制到剪贴板，方便在聊天、文档中使用。
       </el-text>

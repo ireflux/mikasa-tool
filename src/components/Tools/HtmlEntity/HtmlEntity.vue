@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { reactive,ref,onMounted } from 'vue'
+import { ref,onMounted } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { escape, unescape } from 'lodash';
 import { copy } from '@/utils/string'
-const info = reactive({
-  title: "HTML实体转义",
-})
 
 const content = ref('')
 const cleanContent = ref('')
@@ -35,7 +32,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="mb-6">
@@ -54,7 +51,7 @@ onMounted(() => {
 
 
       <!-- desc -->
-      <ToolDetail title="描述">
+      <ToolDetail>
         <el-text>
           html实体转义，实体转义成html
         </el-text> 

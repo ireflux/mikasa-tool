@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -76,7 +76,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线传图取色工具，上传图片后点击图片任意位置获取颜色值，支持 HEX、RGB、HSL 三种颜色格式，可用于设计和开发中获取颜色参考。
       </el-text>
@@ -91,7 +91,6 @@ import { ElMessage } from 'element-plus';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "传图取色"
 
 const imageUrl = ref('');
 const image = ref<HTMLImageElement | null>(null);
@@ -303,7 +302,7 @@ const copyColor = (color: string) => {
 .color-value {
   flex: 1;
   font-family: monospace;
-  background-color: #fff;
+  background-color: var(--glass-bg-strong);
   padding: 5px 10px;
   border-radius: var(--radius-tag);
   border: 1px solid var(--color-border);
@@ -313,7 +312,7 @@ const copyColor = (color: string) => {
   text-align: center;
   color: var(--color-text-muted);
   padding: 40px 0;
-  background-color: #f9f9f9;
+  background-color: var(--glass-bg-soft);
   border-radius: var(--radius-tag);
 }
 

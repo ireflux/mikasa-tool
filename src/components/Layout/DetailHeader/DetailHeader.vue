@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { Star, StarFilled } from '@element-plus/icons-vue'
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref, computed } from 'vue';
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useToolsStore } from '@/store/modules/tools'
 import { useCollectionStore } from '@/store/modules/collection'
 import { ElMessage } from 'element-plus'
 import {rtrim} from '@/utils/string'
-const props = defineProps({  title: String,  id: Number})
+const props = defineProps({
+  title: String,
+  /** i18n key，优先于 title；两者都为空时回退到路由 meta.titleKey */
+  titleKey: String,
+  id: Number,
+})
 const route = useRoute()
 const { t } = useI18n()
 //查询参数
@@ -59,6 +64,13 @@ const toggleCollect = () => {
   }
 }
 
+const displayTitle = computed(() => {
+  if (props.title) return props.title
+  const key = props.titleKey || route.meta.titleKey
+  if (key) return t(key)
+  return ''
+})
+
 onMounted(() => {
   collectionStore.loadCollectedTools()
   getToolInfo()
@@ -69,7 +81,7 @@ onMounted(() => {
 <template>
   <div class="flex justify-between items-center rounded-2xl p-4 mt-5 mb-5 tech-detail-header">
     <div class="text-xl tech-title">
-      {{ props.title }}
+      {{ displayTitle }}
     </div>
     <div>
       <el-button 

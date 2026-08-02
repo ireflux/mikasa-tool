@@ -3,9 +3,6 @@ import { reactive } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 // import { copy } from '@/utils/string'
-const info = reactive({
-  title: "HTTP状态码",
-})
 // ascii: https://ascii.co.uk/table
 const tableDataControlOne = reactive([
   {code:"100 Continue",desc:"请求者应当继续提出请求。 服务器返回此代码表示已收到请求的第一部分，正在等待其余部分"},
@@ -92,7 +89,7 @@ const tableDataControlFive = reactive([
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <el-table :data="tableDataControlOne" class="w-full mb-3">
@@ -132,7 +129,7 @@ const tableDataControlFive = reactive([
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         超全面http状态对应的名称和含义解释
       </el-text> 

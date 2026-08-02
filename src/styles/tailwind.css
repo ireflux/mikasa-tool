@@ -130,6 +130,11 @@ html.dark {
   --el-fill-color-light: rgba(42, 44, 48, 0.8);
   --el-fill-color-lighter: rgba(42, 44, 48, 0.7);
 
+  /* Popper / 浮层表面 — 与项目暗色玻璃表面保持一致 */
+  --el-bg-color: #2a2c30;
+  --el-bg-color-page: #1b1d21;
+  --el-bg-color-overlay: var(--glass-overlay-bg);
+
   --el-text-color-primary: #e8eaed;
   --el-text-color-regular: #c4c7c5;
   --el-text-color-secondary: #9aa0a6;
@@ -522,11 +527,21 @@ html.dark ::-webkit-scrollbar-thumb:hover {
   border-color: var(--color-border);
 }
 
-/* Tooltip */
+/* Tooltip — 深色气泡（明暗两套主题下均保持深色，避免暗色模式下反白） */
 .el-popper.is-dark {
-  background: var(--color-text) !important;
+  --el-popper-bg-color-dark: #1f1f1f;
+  background: var(--el-popper-bg-color-dark) !important;
+  color: #ffffff !important;
   border: none !important;
   border-radius: 8px !important;
+}
+
+html.dark .el-popper.is-dark {
+  --el-popper-bg-color-dark: #3c4043;
+}
+
+html.dark .el-popper.is-dark > .el-popper__arrow:before {
+  border-color: #3c4043;
 }
 
 /* Select dropdown — frosted glass */
@@ -553,6 +568,229 @@ html.dark ::-webkit-scrollbar-thumb:hover {
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   color: var(--color-primary);
+}
+
+/* ============================================
+   CodeMirror — Dark Theme (JSFormat/CSSFormat/HtmlFormat/JsonTran/RegTest)
+   ============================================ */
+html.dark .cm-editor {
+  background: #1b1d21;
+  color: #e8eaed;
+}
+
+html.dark .cm-editor.cm-focused {
+  outline: none;
+}
+
+html.dark .cm-editor .cm-gutters {
+  background: #1e2024;
+  color: #9aa0a6;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+html.dark .cm-editor .cm-activeLine {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+html.dark .cm-editor .cm-activeLineGutter {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+html.dark .cm-editor .cm-selectionBackground,
+html.dark .cm-editor.cm-focused .cm-selectionBackground {
+  background: rgba(138, 180, 248, 0.3) !important;
+}
+
+html.dark .cm-editor .cm-cursor {
+  border-left-color: #8ab4f8;
+}
+
+html.dark .cm-editor .cm-scroller {
+  font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+}
+
+html.dark .cm-editor .cm-tooltip {
+  background: #2a2c30;
+  color: #e8eaed;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html.dark .cm-editor .cm-tooltip-autocomplete ul li[aria-selected] {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8eaed;
+}
+
+html.dark .cm-editor .cm-tooltip .cm-completionLabel,
+html.dark .cm-editor .cm-tooltip .cm-completionInfo {
+  color: #c4c7c5;
+}
+
+html.dark .cm-editor .cm-search {
+  background: #2a2c30;
+  color: #e8eaed;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html.dark .cm-editor .cm-search input,
+html.dark .cm-editor .cm-search button {
+  background: #3a3c40;
+  color: #e8eaed;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+html.dark .cm-editor .cm-matchingBracket {
+  background: rgba(138, 180, 248, 0.25);
+  outline: 1px solid rgba(138, 180, 248, 0.5);
+}
+
+html.dark .cm-editor .cm-nonmatchingBracket {
+  background: rgba(242, 139, 130, 0.25);
+  outline: 1px solid rgba(242, 139, 130, 0.5);
+}
+
+/* ============================================
+   v-md-editor — Dark Theme (Markdown)
+   ============================================ */
+html.dark .v-md-editor {
+  background: #1b1d21;
+}
+
+html.dark .v-md-editor__toolbar {
+  border-bottom: 1px solid var(--color-border);
+}
+
+html.dark .v-md-editor__toolbar-item {
+  color: #c4c7c5;
+}
+
+html.dark .v-md-editor__toolbar-item:hover {
+  background: var(--color-hover);
+}
+
+html.dark .v-md-editor__toolbar-item--active,
+html.dark .v-md-editor__toolbar-item--active:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+html.dark .v-md-editor__toolbar-divider:before {
+  border-left-color: var(--color-border);
+}
+
+html.dark .v-md-editor__left-area,
+html.dark .v-md-editor--editable .v-md-editor__editor-wrapper {
+  border-color: var(--color-border);
+}
+
+html.dark .v-md-editor__left-area-title {
+  color: #e8eaed;
+}
+
+html.dark .v-md-editor__left-area-title:after {
+  border-bottom-color: var(--color-border);
+}
+
+html.dark .v-md-textarea-editor pre,
+html.dark .v-md-textarea-editor textarea {
+  color: #e8eaed;
+}
+
+html.dark .v-md-textarea-editor textarea::-webkit-input-placeholder,
+html.dark .v-md-textarea-editor textarea::placeholder {
+  color: #80868b;
+}
+
+html.dark .v-md-editor__menu {
+  background: var(--glass-overlay-bg);
+  border: 1px solid var(--color-border);
+}
+
+html.dark .v-md-editor__menu-item {
+  color: #e8eaed;
+}
+
+html.dark .v-md-editor__menu-item:hover {
+  background: var(--color-hover);
+}
+
+html.dark .vuepress-markdown-body {
+  background: #1b1d21;
+  color: #c4c7c5;
+}
+
+html.dark .vuepress-markdown-body a,
+html.dark .vuepress-markdown-body p a code {
+  color: #8ab4f8;
+}
+
+html.dark .vuepress-markdown-body h1,
+html.dark .vuepress-markdown-body h2,
+html.dark .vuepress-markdown-body h3,
+html.dark .vuepress-markdown-body h4,
+html.dark .vuepress-markdown-body h5,
+html.dark .vuepress-markdown-body h6 {
+  color: #e8eaed;
+}
+
+html.dark .vuepress-markdown-body h2 {
+  border-bottom-color: var(--color-border);
+}
+
+html.dark .vuepress-markdown-body hr {
+  border-top-color: var(--color-border);
+}
+
+html.dark .vuepress-markdown-body blockquote {
+  color: #9aa0a6;
+  border-left-color: var(--color-border-hover);
+}
+
+html.dark .vuepress-markdown-body code {
+  color: #e8eaed;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+html.dark .vuepress-markdown-body table tr {
+  border-top-color: var(--color-border);
+}
+
+html.dark .vuepress-markdown-body table tr:nth-child(2n) {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+html.dark .vuepress-markdown-body table td,
+html.dark .vuepress-markdown-body table th {
+  border-color: var(--color-border);
+}
+
+html.dark .vuepress-markdown-body kbd {
+  background: #3a3c40;
+  border-color: var(--color-border-hover);
+}
+
+html.dark .v-md-plugin-tip.tip {
+  background-color: rgba(129, 201, 149, 0.12);
+  border-color: #81c995;
+}
+
+html.dark .v-md-plugin-tip.warning {
+  color: #fdd663;
+  background-color: rgba(253, 214, 99, 0.1);
+  border-color: #fdd663;
+}
+
+html.dark .v-md-plugin-tip.danger {
+  color: #f28b82;
+  background-color: rgba(242, 139, 130, 0.1);
+  border-color: #f28b82;
+}
+
+html.dark .v-md-plugin-tip.details {
+  background-color: #26272b;
+}
+
+html.dark .v-md-plugin-tip.warning a,
+html.dark .v-md-plugin-tip.danger a {
+  color: #c4c7c5;
 }
 
 /* ============================================

@@ -5,7 +5,6 @@ import { useChart } from '@/composables/useChart'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const chartTitle = '饼图'
 const chartDom = ref<HTMLElement | null>(null)
 const dataFileRef = ref()
 
@@ -21,7 +20,7 @@ const {
   defaultColumns: ['Search Engine', 'Direct', 'Email', 'Union Ads', 'Video Ads'],
   defaultValues: [1048, 735, 580, 484, 300],
   buildOption: (ctx) => ({
-    backgroundColor: '#fff',
+
     title: {
       text: ctx.title.value,
       subtext: ctx.subTitle.value,
@@ -69,7 +68,7 @@ const {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="chartTitle"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card flex">
       <div class="w-4/6">
@@ -78,7 +77,7 @@ const {
           <el-text>缩放：</el-text>
         </div>
         <div class="flex justify-center items-center max-h-[500px] max-w-[1000px] overflow-auto">
-          <div ref="chartDom" class="bg-white"></div>
+          <div ref="chartDom" class="bg-[var(--color-surface)]"></div>
         </div>
       </div>
       <div class="w-2/6 ml-3 tool-card" style="padding: 0.75rem;">
@@ -184,11 +183,12 @@ const {
       </div>
     </div>
 
-    <el-drawer id="x-spreadsheet" v-model="drawer" direction="btt" class="sheet" style="">
+    <el-drawer v-model="drawer" direction="btt" class="sheet">
+      <div ref="sheetContainer" class="sheet-container"></div>
     </el-drawer>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         饼图是通过一个圆来展示数据，用圆内各扇形的角度来表示数据之间的占比关系。<br>
         能够很好地展示不同分类的变量之间或单个分类变量与整体之间的占比情况，常用来强调某个突出的分类变量或表示表示占比关系。<br>
@@ -201,8 +201,9 @@ const {
 </template>
 
 <style scoped>
-:deep(.el-drawer__body){
-  display: none !important;
+.sheet-container{
+  height: 100%;
+  overflow: auto;
 }
 :deep(.el-drawer__header){
   display: none !important;

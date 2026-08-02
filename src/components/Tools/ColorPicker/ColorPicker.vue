@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive,ref,onMounted } from 'vue'
+import { ref,onMounted } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { copy } from '@/utils/string'
@@ -12,9 +12,6 @@ import lchPlugin from 'colord/plugins/lch';
 import labPlugin from 'colord/plugins/lab';
 extend([cmykPlugin, hwbPlugin, namesPlugin, lchPlugin, labPlugin]);
 
-const info = reactive({
-  title: "Color选择器",
-})
 
 const color = ref('var(--color-primary)')
 const hex = ref()
@@ -56,7 +53,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card text-center">
       <ul class="w-3/4">
@@ -69,7 +66,7 @@ onMounted(() => {
 
         <li class='flex items-center mb-3'>
           <div class="w-36 text-right pr-3">Hex:</div>
-          <div class="w-full pl-3 p-1  text-left bg-[#f5f5fb] flex items-center justify-between">
+          <div class="w-full pl-3 p-1  text-left bg-[var(--glass-bg-strong)] flex items-center justify-between">
             <div>
               {{ hex }}
             </div>
@@ -86,7 +83,7 @@ onMounted(() => {
 
         <li class='flex items-center mb-3'>
           <div class="w-36 text-right pr-3">RGB:</div>
-          <div class="w-full pl-3 p-1  text-left bg-[#f5f5fb] flex items-center justify-between">
+          <div class="w-full pl-3 p-1  text-left bg-[var(--glass-bg-strong)] flex items-center justify-between">
             <div>
               {{ rgb }}
             </div>
@@ -103,7 +100,7 @@ onMounted(() => {
 
         <li class='flex items-center mb-3'>
           <div class="w-36 text-right pr-3">HSL:</div>
-          <div class="w-full pl-3 p-1  text-left bg-[#f5f5fb] flex items-center justify-between">
+          <div class="w-full pl-3 p-1  text-left bg-[var(--glass-bg-strong)] flex items-center justify-between">
             <div>
               {{ hsl }}
             </div>
@@ -120,7 +117,7 @@ onMounted(() => {
 
         <li class='flex items-center mb-3'>
           <div class="w-36 text-right pr-3">HSV:</div>
-          <div class="w-full pl-3 p-1  text-left bg-[#f5f5fb] flex items-center justify-between">
+          <div class="w-full pl-3 p-1  text-left bg-[var(--glass-bg-strong)] flex items-center justify-between">
             <div>
               {{ hsv }}
             </div>
@@ -137,7 +134,7 @@ onMounted(() => {
 
         <li class='flex items-center mb-3'>
           <div class="w-36 text-right pr-3">HWB:</div>
-          <div class="w-full pl-3 p-1  text-left bg-[#f5f5fb] flex items-center justify-between">
+          <div class="w-full pl-3 p-1  text-left bg-[var(--glass-bg-strong)] flex items-center justify-between">
             <div>
               {{ hwb }}
             </div>
@@ -154,7 +151,7 @@ onMounted(() => {
 
         <li class='flex items-center mb-3'>
           <div class="w-36 text-right pr-3">LAB:</div>
-          <div class="w-full pl-3 p-1  text-left bg-[#f5f5fb] flex items-center justify-between">
+          <div class="w-full pl-3 p-1  text-left bg-[var(--glass-bg-strong)] flex items-center justify-between">
             <div>
               {{ lab }}
             </div>
@@ -171,7 +168,7 @@ onMounted(() => {
 
         <li class='flex items-center mb-3'>
           <div class="w-36 text-right pr-3">LCH:</div>
-          <div class="w-full pl-3 p-1  text-left bg-[#f5f5fb] flex items-center justify-between">
+          <div class="w-full pl-3 p-1  text-left bg-[var(--glass-bg-strong)] flex items-center justify-between">
             <div>
               {{ lch }}
             </div>
@@ -188,7 +185,7 @@ onMounted(() => {
 
         <li class='flex items-center mb-3'>
           <div class="w-36 text-right pr-3">CMYK:</div>
-          <div class="w-full pl-3 p-1  text-left bg-[#f5f5fb] flex items-center justify-between">
+          <div class="w-full pl-3 p-1  text-left bg-[var(--glass-bg-strong)] flex items-center justify-between">
             <div>
               {{ cmyk }}
             </div>
@@ -205,7 +202,7 @@ onMounted(() => {
 
         <li class='flex items-center mb-3'>
           <div class="w-36 text-right pr-3">Name:</div>
-          <div class="w-full pl-3 p-1  text-left bg-[#f5f5fb] flex items-center justify-between">
+          <div class="w-full pl-3 p-1  text-left bg-[var(--glass-bg-strong)] flex items-center justify-between">
             <div>
               {{ name }}
             </div>
@@ -223,7 +220,7 @@ onMounted(() => {
     </div>
 
     <!-- desc -->
-		<ToolDetail title="描述">
+		<ToolDetail>
 			<el-text>
 				在不同格式（十六进制、rgb、hsl和css名称）之间转换颜色<br>
         <br>

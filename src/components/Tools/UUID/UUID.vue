@@ -6,7 +6,6 @@ import { copy } from '@/utils/string'
 import { ElMessage } from 'element-plus'
 import { v4 as uuidv4 } from 'uuid'
 const info = reactive({
-  title: "UUID生成器",
   resStr: '',
   pwNum: 1,
   autosize: {
@@ -46,7 +45,7 @@ const copyRes = async (resStr: string) => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div>
@@ -65,7 +64,7 @@ const copyRes = async (resStr: string) => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线UUID批量生成
       </el-text> 

@@ -4,7 +4,6 @@ import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import {jwtDecode} from 'jwt-decode'
 const info = reactive({
-  title: "JWT解析",
   token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b29scy5yYW5ibG9ncy5jb20iLCJzdWIiOiJhcnlhIiwiYXVkIjoidGFvcmFuIiwiaWF0IjoxNzE3MDM2MzMzLCJleHAiOjE3MTcwMzY5MzN9.9v_eDdsPnvcY7qZatNnKvN9VEf7t7o72OgwhLS6gy6w',
 })
 
@@ -38,7 +37,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="mb-6">
@@ -76,7 +75,7 @@ onMounted(() => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         解析和解码JSON Web Token（jwt）并显示其内容。<br>
         <br>

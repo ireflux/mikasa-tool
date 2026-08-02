@@ -5,7 +5,6 @@ import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { copy, genRandomStrByChars } from '@/utils/string'
 import { ElMessage } from 'element-plus'
 const info = reactive({
-  title: "随机密码生成",
   char: '',
   pwLen: 10,
   pwNum: 5,
@@ -119,7 +118,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <el-text>密码组合</el-text>
@@ -151,7 +150,7 @@ onMounted(() => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线生成密码支持开启或关闭大小写 、数字 、特殊符号，支持自定义字符，长度；批量生成密码
       </el-text> 

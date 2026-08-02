@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -50,7 +50,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线抽签工具，输入多个选项后随机抽取一个或多个结果，支持设置抽取数量和是否允许重复抽取，可用于随机选择、抽奖等场景。
       </el-text>
@@ -64,7 +64,6 @@ import { ref } from 'vue';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "抽签工具"
 
 const optionsText = ref('');
 const drawCount = ref(1);

@@ -92,13 +92,14 @@ export default defineConfig(({command, mode}) => {
     },
     server: {
       host: env.VITE_HOST,
-      proxy: {
-        [env.VITE_APP_BASE_API] : {
-          target: env.VITE_SERVE,
-          changeOrigin: true,
-        },
-        
-      }
+      proxy: env.VITE_SERVE
+        ? {
+            [env.VITE_APP_BASE_API]: {
+              target: env.VITE_SERVE,
+              changeOrigin: true,
+            },
+          }
+        : undefined,
     },
     ssr: {
       noExternal: [

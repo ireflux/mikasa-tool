@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -123,7 +123,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线番茄时钟工具，用于时间管理，支持工作和休息模式切换，可自定义工作时间、休息时间和工作轮数，帮助提高工作效率和专注力。
       </el-text>
@@ -138,7 +138,6 @@ import { ElMessage } from 'element-plus';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "番茄时钟"
 
 // 时间设置
 const workTime = ref(25);

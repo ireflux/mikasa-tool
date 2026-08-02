@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -73,7 +73,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线转盘工具，自定义选项后旋转转盘随机选择结果，支持多个选项和动画效果，可用于随机选择、抽奖等场景。
       </el-text>
@@ -87,7 +87,6 @@ import { ref, computed, watch } from 'vue';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "转盘工具"
 
 const optionsText = ref('选项1\n选项2\n选项3\n选项4\n选项5');
 const isSpinning = ref(false);

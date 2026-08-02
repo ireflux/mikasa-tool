@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -50,7 +50,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线简易计算器，支持基本的加减乘除和取模运算，具有历史记录显示功能，可用于日常简单计算。
       </el-text>
@@ -64,7 +64,6 @@ import { ref } from 'vue';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "简易计算器"
 
 const display = ref('0');
 const history = ref('');

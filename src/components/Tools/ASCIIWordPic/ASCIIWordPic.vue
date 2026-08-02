@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { reactive,ref,onMounted } from 'vue'
+import { ref,onMounted } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { copy } from '@/utils/string'
 import figlet from 'figlet';
-const info = reactive({
-  title: "ASCII字形生成器",
-})
 figlet.defaults({ fontPath: '//unpkg.com/figlet@1.6.0/fonts/' });
 
 const content = ref('Mikasa-Tool')
@@ -131,7 +128,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="mb-6">
@@ -169,7 +166,7 @@ onMounted(() => {
     </div>
   
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         好用的ASCII字形生成器，输入框中输入需要生成的字母；提供多种风格选择
       </el-text> 

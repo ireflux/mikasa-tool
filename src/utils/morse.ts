@@ -83,22 +83,20 @@ export function toText(morse: string) {
   let text = '';
   const morseArr = morse.split(' ').filter(item => item.trim() !== "")
   for (let i = 0; i < morseArr.length; i++) {
-    if (morseArr[i].length > 6) {
-      //摩斯电码转中文
-      text += decode(morseArr[i])
+    const code = morseArr[i]
+    const matched = Object.keys(morseCodeMap).find(key => morseCodeMap[key] === code)
+    if (matched) {
+      text += matched
     } else {
-      text += Object.keys(morseCodeMap).find(key => morseCodeMap[key] === morseArr[i]) || '?'
+      //英文表内不存在时，尝试按中文摩斯解码
+      try {
+        text += decode(code) || '?'
+      } catch {
+        text += '?'
+      }
     }
   }
   return text
-}
-
-//中文转摩斯电码
-export function chineseToMorse(chinese: string): string {
-  //先转换成ascii码
-  const asciiCode = chinese.charCodeAt(0).toString()
-  //转换
-  return asciiCode.split('').map(char => morseCodeMap[char] || '').join('');  
 }
 
 const MorseUtils = {

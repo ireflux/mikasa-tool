@@ -7,7 +7,6 @@ import { copy } from '@/utils/string'
 import { Md5 } from 'ts-md5'
 import CryptoJS from 'crypto-js'
 
-const title = "Hash计算器"
 
 // 状态管理
 const inputText = ref('')
@@ -160,7 +159,7 @@ const clearInput = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <!-- 输入部分 -->
@@ -220,7 +219,7 @@ const clearInput = () => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线Hash计算器，支持MD5、SHA-1、SHA-256、SHA-384、SHA-512等多种哈希算法，以及Hmac-MD5、Hmac-SHA1、Hmac-SHA256、Hmac-SHA384、Hmac-SHA512等Hmac算法，可用于数据完整性验证、密码加密等场景。
       </el-text>

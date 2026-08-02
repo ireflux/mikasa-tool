@@ -14,6 +14,7 @@ declare module '@kangc/v-md-editor/lib/theme/vuepress.js'
 declare module 'prismjs'
 declare module 'uuid'
 declare module 'vue-danmaku'
+declare module 'x-data-spreadsheet/dist/locale/zh-cn'
 
 interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string
@@ -22,9 +23,8 @@ interface ImportMetaEnv {
   readonly VITE_SERVE: string
   readonly VITE_HOST: string
   readonly VITE_FEEDBACK_URL: string
-  readonly VITE_ADV_SHOW: string
   readonly VITE_LEFT_ADV: string
-  readonly VITE_IS_MOCK: string
+  readonly VITE_SITE_URL?: string
 }
 
 interface ImportMeta {

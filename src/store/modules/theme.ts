@@ -28,19 +28,28 @@ export const useThemeStore = defineStore('theme', {
     },
   },
   actions: {
-    // 初始化：读取本地偏好 + 监听系统主题变化
+    // 初始化：读取本地偏好 + 监听系统主题变化（可重复调用，不会累积监听器）
     init() {
       if (typeof window === 'undefined') return
-      const saved = localStorage.getItem(THEME_KEY) as ThemeMode | null
-      this.mode = saved && VALID_MODES.includes(saved) ? saved : 'system'
-      applyTheme(this.mode)
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        if (this.mode === 'system') applyTheme(this.mode)
-      })
+      try {
+        const saved = localStorage.getItem(THEME_KEY) as ThemeMode | null
+        this.mode = saved && VALID_MODES.includes(saved) ? saved : 'system'
+        applyTheme(this.mode)
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.handleSystemChange)
+      } catch (error) {
+        console.error('初始化主题失败:', error)
+      }
+    },
+    handleSystemChange() {
+      if (this.mode === 'system') applyTheme(this.mode)
     },
     setMode(mode: ThemeMode) {
       this.mode = mode
-      localStorage.setItem(THEME_KEY, mode)
+      try {
+        localStorage.setItem(THEME_KEY, mode)
+      } catch (error) {
+        console.error('保存主题偏好失败:', error)
+      }
       applyTheme(mode)
     },
   },

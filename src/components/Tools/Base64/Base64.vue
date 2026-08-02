@@ -6,7 +6,6 @@ import { ElMessage } from 'element-plus'
 import { copy } from '@/utils/string'
 
 // 状态管理
-const title = "Base64加解密工具"
 const activeTab = ref('encode')
 const encodeInput = ref('')
 const encodeOutput = ref('')
@@ -65,7 +64,7 @@ const copyDecodeResult = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <el-tabs v-model="activeTab">
@@ -130,7 +129,7 @@ const copyDecodeResult = () => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线Base64加解密工具，支持文本的Base64编码和解码，可用于URL编码、数据传输等场景。
       </el-text>

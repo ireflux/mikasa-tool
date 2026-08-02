@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -76,7 +76,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线剪刀石头布游戏，与电脑对战，支持实时显示对战结果和游戏统计，可用于休闲娱乐和决策参考。
       </el-text>
@@ -90,7 +90,6 @@ import { ref } from 'vue';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "剪刀石头布"
 
 const choices = [
   { name: '剪刀', value: 'scissors', icon: '✂️' },

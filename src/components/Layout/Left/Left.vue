@@ -10,9 +10,10 @@ const route = useRoute()
 const { t } = useI18n()
 
 const leftAdv = ref(import.meta.env.VITE_LEFT_ADV || '')
-// Security: sanitize ad HTML to prevent XSS
+// Security: sanitize ad HTML to prevent XSS（DOMPurify 依赖 window，仅客户端执行）
 const sanitizedAdv = computed(() => {
   if (!leftAdv.value) return ''
+  if (typeof window === 'undefined') return ''
   return DOMPurify.sanitize(leftAdv.value)
 })
 //菜单选中

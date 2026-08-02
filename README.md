@@ -17,15 +17,15 @@ A client-side online toolbox that runs entirely in the browser — no backend re
 
 ## Features
 
-Mikasa Tool includes **68** utilities across **7** categories:
+Mikasa Tool includes **66** utilities across **7** categories:
 
-- **DevOps**: password generator, URL encode/decode, UUID generator, timestamp converter, MD5, JSON formatter, regex tester, Unicode converter, HTTP status codes, JWT parser, HTML entity escape, JS/HTML/CSS formatter, Base64, base converter, storage unit converter, hash calculator, XML/SQL formatter
+- **DevOps**: password generator, URL encode/decode, UUID generator, timestamp converter, MD5, JSON formatter, regex tester, Unicode converter, HTTP status codes, JWT parser, HTML entity escape, JS/HTML/CSS formatter, Base64, base converter, storage unit converter, hash calculator, XML/SQL formatter, AES/RSA encryption, cron expression, image compression/format conversion
 - **Text**: diff, Markdown editor, word count, duplicate removal, ASCII art, rich text editor, text replace, text workflow, word frequency
-- **Education & Science**: unit converter, Morse code, ASCII table, length/area/weight/time/temperature/pressure/energy/power converters
+- **Education & Science**: unit converter, Morse code, number system conversion, ASCII table
 - **Image**: QR code generator, image editor, text-to-image, image splitter, color picker, watermark
 - **Charts**: bar, line, pie, scatter, word cloud
-- **Random & Decision**: random number, decision helper, coin flip, dice, lottery, spinner
-- **Miscellaneous**: Chinese number converter, danmaku, color palette, pomodoro, reaction test, m3u8 player, rock-paper-scissors, emoji picker, calculator
+- **Random & Decision**: Chinese number converter, danmaku, color palette, color picker, pomodoro, reaction test, m3u8 player, rock-paper-scissors, emoji picker, calculator, date calculator, BMI/mortgage calculator
+- **Miscellaneous**: random number, decision helper, coin flip, dice, lottery, spinner
 
 ## Getting Started
 

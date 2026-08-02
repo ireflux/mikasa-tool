@@ -5,7 +5,6 @@ import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 import { ElMessage } from 'element-plus'
 import { copy } from '@/utils/string'
 
-const title = "词频统计"
 
 // 状态管理
 const inputText = ref('')
@@ -84,7 +83,7 @@ const clearInput = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <!-- 输入部分 -->
@@ -128,7 +127,7 @@ const clearInput = () => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线词频统计工具，用于统计文本中单词出现的频率，可用于文本分析、关键词提取等场景，支持设置最小单词长度。
       </el-text>

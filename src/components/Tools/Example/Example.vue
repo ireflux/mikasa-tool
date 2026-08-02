@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 // import { copy } from '@/utils/string'
-const info = reactive({
-  title: "tool name",
-})
 
 //copy
 // const copyRes = async (resStr: string) => {
@@ -15,14 +11,14 @@ const info = reactive({
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         示例...
       </el-text> 

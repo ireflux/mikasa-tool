@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { ref,reactive } from 'vue'
+import { ref } from 'vue'
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 // import { copy } from '@/utils/string'
 const base = import.meta.env.BASE_URL
 const frontBg = `url(${base}images/coin/dollar.png)`
 const reverseBg = `url(${base}images/coin/xingxing.png)`
-const info = reactive({
-  title: "抛硬币",
-})
 
 const genStatus = ref(false)
 const isHeads = ref(true)
@@ -28,7 +25,7 @@ const throwCoin = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div style="flex-grow: 3; display: flex; justify-content: center;">
@@ -45,7 +42,7 @@ const throwCoin = () => {
     </div>
 
 		<!-- desc -->
-		<ToolDetail title="描述">
+		<ToolDetail>
 			<el-text>
 				面临艰难的选择？ 我们邀请您在线掷硬币！
 			</el-text> 

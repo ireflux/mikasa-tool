@@ -6,7 +6,6 @@ import { ElMessage } from 'element-plus'
 import { ArrowDown, ArrowUp, Delete } from '@element-plus/icons-vue'
 import { copy } from '@/utils/string'
 
-const title = "文本处理工作流"
 
 // 状态管理
 const inputText = ref('')
@@ -117,7 +116,7 @@ const clearInput = () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <!-- 输入部分 -->
@@ -218,7 +217,7 @@ const clearInput = () => {
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线文本处理工作流工具，允许用户定义一系列文本处理步骤并按顺序执行，可用于复杂的文本处理任务，提高工作效率。
       </el-text>

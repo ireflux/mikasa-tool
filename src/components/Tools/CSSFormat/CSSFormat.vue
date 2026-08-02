@@ -13,7 +13,6 @@ import { ElMessage } from 'element-plus'
 import { minify } from "csso"
 
 const info = reactive({
-  title: "css代码格式化/压缩",
   code: '',
   isParseErr: false,
   parseErr: '',
@@ -56,7 +55,7 @@ const copyRes = async () => {
 
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="info.title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       
@@ -78,13 +77,13 @@ const copyRes = async () => {
         <el-button type="primary" @click="clear">清空</el-button>
       </div>
 
-      <div class="mt-3 min-h-md bg-red-100 p-3 mb-3" v-show="info.isParseErr">
+      <div class="mt-3 min-h-md bg-[var(--el-color-danger-light-9)] p-3 mb-3" v-show="info.isParseErr">
         <el-text type="danger">{{ info.parseErr }}</el-text>
       </div>
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线css格式化，在线压缩css代码
       </el-text> 

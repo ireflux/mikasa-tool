@@ -17,8 +17,23 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;')
 }
 
-function buildPage(renderedHtml, { title, keywords, description }) {
+function buildPage(renderedHtml, { title, keywords, description }, routePath) {
   let output = template
+
+  // 按页生成 canonical/og:url（以模板中已解析的根地址为前缀）
+  const canonicalMatch = output.match(/<link\s+rel="canonical"\s+href="([^"]*)"/)
+  const canonicalBase = canonicalMatch ? canonicalMatch[1].replace(/\/?$/, '/') : '/'
+  const cleanRoute = routePath.replace(/^\/+/, '').replace(/\/+$/, '')
+  const pageUrl = canonicalBase + cleanRoute
+
+  output = output.replace(
+    /<link\s+rel="canonical"\s+href="[^"]*"/,
+    `<link rel="canonical" href="${escapeHtml(pageUrl)}"`
+  )
+  output = output.replace(
+    /<meta\s+property="og:url"\s+content="[^"]*"/,
+    `<meta property="og:url" content="${escapeHtml(pageUrl)}"`
+  )
 
   // Replace empty title tag
   output = output.replace(
@@ -42,10 +57,6 @@ function buildPage(renderedHtml, { title, keywords, description }) {
   output = output.replace(
     /<meta\s+property="og:title"\s+content="">/,
     `<meta property="og:title" content="${escapeHtml(title)}">`
-  )
-  output = output.replace(
-    /<meta\s+property="og:site_name"\s+content="">/,
-    `<meta property="og:site_name" content="${escapeHtml(title)}">`
   )
   output = output.replace(
     /<meta\s+property="og:description"\s+content="">/,
@@ -80,7 +91,7 @@ async function main() {
   for (const routePath of routePaths) {
     try {
       const { html, title, keywords, description } = await render(routePath)
-      const output = buildPage(html, { title, keywords, description })
+      const output = buildPage(html, { title, keywords, description }, routePath)
 
       const outputPath = getOutputPath(routePath)
       fs.mkdirSync(path.dirname(outputPath), { recursive: true })

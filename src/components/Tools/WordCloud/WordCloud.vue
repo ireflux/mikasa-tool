@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-3 flex-1">
-    <DetailHeader :title="title"></DetailHeader>
+    <DetailHeader></DetailHeader>
 
     <div class="tool-card">
       <div class="tool-content">
@@ -60,7 +60,7 @@
     </div>
 
     <!-- desc -->
-    <ToolDetail title="描述">
+    <ToolDetail>
       <el-text>
         在线词云生成工具，根据输入文本生成词云图，支持自定义词云形状、颜色方案和字体大小范围，可用于文本分析和可视化。
       </el-text>
@@ -70,13 +70,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 import * as echarts from 'echarts';
 import 'echarts-wordcloud';
 import DetailHeader from '@/components/Layout/DetailHeader/DetailHeader.vue'
 import ToolDetail from '@/components/Layout/ToolDetail/ToolDetail.vue'
 
-const title = "词云生成"
 
 const inputText = ref('');
 const shape = ref('circle');
@@ -218,6 +217,12 @@ onMounted(() => {
   // 示例文本
   inputText.value = '词云 生成 工具 在线 文本 分析 可视化 数据 图表 形状 颜色 字体 大小 频率 统计 单词 词组 自定义 圆形 矩形 三角形 心形 暖色 冷色 多彩';
   generateWordCloud();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize);
+  chart?.dispose();
+  chart = null;
 });
 </script>
 
